@@ -1,0 +1,61 @@
+@import "./../config.less";
+@import "./../less-color-theme/user.less";
+@import "./nav-user.less";
+page {
+	@{bgc}: @page-bg;
+}
+.bdt {
+	border-top: 2upx solid @bd-glay;
+}
+.m-ct {
+	image {
+		width: 280upx;
+		height: 197upx;
+		display: block;
+	}
+	padding: 0 20upx;
+	@{bgc}: #fff;
+	&-li {
+		display: flex;
+		@{fs}: column;
+		@{jc}: space-between;
+		@{fs}: 32upx;
+		padding: 26upx 0;
+		image {
+			margin-right: 16upx;
+		}
+		.title {
+			flex: 1;
+			line-height: 40upx;
+			height: 120upx;
+			.words-hide();
+			font-weight: 900;
+			color: @font-black;
+		}
+		.time-hour {
+			@{fs}: 28upx;
+		}
+		.info {
+			display: flex;
+			@{ai}: center;
+			@{jc}: space-between;
+		}
+		navigator,
+		.action {
+			display: flex;
+			@{jc}: center;
+			@{ai}: center;
+			width: 180upx;
+			height: 64upx;
+			@{bdra}: 32upx;
+			color: #fff;
+		}
+		navigator {
+			@{bgc}: @orange;
+		}
+		.action {
+			@{bgc}: @orange-small;
+		}
+	}
+}
+
