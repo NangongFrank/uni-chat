@@ -2,6 +2,9 @@
 	"pages": [
 		{
 			"path": "pages/index/index"
+		},
+		{
+			"path":"pages/extra/firends"
 		}
 	],
 	"globalStyle": {
@@ -9,6 +12,9 @@
 	},
 	"condition": {
 		"current": 0,
-		"list": []
+		"list": [{
+			"path":"pages/extra/firends",
+			"name":"好友列表"
+		}]
 	}
 }
