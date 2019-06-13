@@ -20,7 +20,7 @@
 </script>
 <style lang="less" scoped>
 	@import "../static/config.less";
-	@import "../static/theme/wordPage/customerService.less";
+	@import "../static/theme/components/customerService.less";
 	.content {
 		@{bgc}: @wrapper-bg;
 		width: 50upx;

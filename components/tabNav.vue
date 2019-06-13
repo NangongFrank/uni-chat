@@ -52,7 +52,7 @@
 </script>
 <style lang="less" scoped>
 	@import "../static/config.less";
-	@import "../static/theme/wordPage/tabNav.less";
+	@import "../static/theme/components/tabNav.less";
 	.li {
 		position: relative;
 		margin-bottom: 22upx;

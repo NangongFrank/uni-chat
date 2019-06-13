@@ -101,7 +101,7 @@
 </script>
 <style lang="less" scoped>
 	@import "../static/config.less";
-	@import "../static/theme/wordPage/chatRoom.less";
+	@import "../static/theme/components/chatRoom.less";
 	image {
 		width: 87upx;
 		height: 87upx;
