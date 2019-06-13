@@ -5,9 +5,31 @@
 		},
 		{
 			"path": "pages/user/AddUser"
+		},
+		{
+			"path":"pages/user/myChatUser"
+		},
+		{
+			"path":"pages/user/userAction"
+		},
+		{
+			"path": "pages/user/myUserAction"
 		}
 	],
 	"globalStyle": {
 		"navigationStyle": "custom"
+	},
+	"condition": {
+		"current": 0,
+		"list": [{
+			"path": "pages/user/userAction",
+			"name": "用户信息"
+		}, {
+			"path": "pages/user/AddUser",
+			"name": "添加用户"
+		}, {
+			"path":"pages/user/myChatUser",
+			"name": "用户聊天"
+		}]
 	}
 }
