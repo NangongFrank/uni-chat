@@ -1,22 +1,38 @@
 <template>
 	<view class="content">
-		<word-header />
-		<view class="padding-100"></view>
-		<chat-room />
+		<image src="/static/assets/chatroom/bg-img.jpg" mode="widthFix"></image>
 	</view>
 </template>
-
 <script>
-	import WordHeader from '@/components/wordHead'
-	import ChatRoom from '@/components/chatRoom'
+	import tabNav from '@/components/tabNav'
+	import chatSendBox from '@/components/chatSendBox'
+	import chatRoom from '@/components/chatRoom'
 	export default {
+		data() {
+			return {
+				
+			}
+		},
 		components: {
-			WordHeader,
-			ChatRoom,
+			tabNav,
+			chatSendBox,
+			chatRoom,
+		},
+		methods: {
+			
+		},
+		onLoad() {
+			
 		},
 	}
 </script>
-
 <style lang="less" scoped>
-	@import "../../static/config";
+	@import '../../static/config.less';
+	image {
+		position: fixed;
+		top: 0;
+		left: 0;
+		z-index: -1;
+		width: 750upx;
+	}
 </style>

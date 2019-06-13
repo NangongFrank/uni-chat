@@ -1,19 +1,7 @@
 {
-	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+	"pages": [
 		{
 			"path": "pages/index/index"
-		},
-		{
-			"path": "pages/user/AddUser"
-		},
-		{
-			"path":"pages/user/myChatUser"
-		},
-		{
-			"path":"pages/user/userAction"
-		},
-		{
-			"path": "pages/user/myUserAction"
 		}
 	],
 	"globalStyle": {
@@ -21,15 +9,6 @@
 	},
 	"condition": {
 		"current": 0,
-		"list": [{
-			"path": "pages/user/userAction",
-			"name": "用户信息"
-		}, {
-			"path": "pages/user/AddUser",
-			"name": "添加用户"
-		}, {
-			"path":"pages/user/myChatUser",
-			"name": "用户聊天"
-		}]
+		"list": []
 	}
 }
