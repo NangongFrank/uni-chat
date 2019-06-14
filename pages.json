@@ -5,6 +5,15 @@
 		},
 		{
 			"path":"pages/extra/firends"
+		},
+		{
+			"path": "pages/extra/application"
+		},
+		{
+			"path": "pages/extra/message"
+		},
+		{
+			"path": "pages/extra/myself"
 		}
 	],
 	"globalStyle": {
@@ -15,6 +24,15 @@
 		"list": [{
 			"path":"pages/extra/firends",
 			"name":"好友列表"
+		}, {
+			"path": "pages/extra/application",
+			"name":"应用功能"
+		}, {
+			"path": "pages/extra/message",
+			"name":"消息"
+		}, {
+			"path": "pages/extra/myself",
+			"name":"我的"
 		}]
 	}
 }

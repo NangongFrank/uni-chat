@@ -15,7 +15,8 @@
 					<view class="user-info">
 						<view class="user-info-base">
 							<view class="name" v-text="value.name"></view>
-							<view class="iconfont" :class="['icon-' + value.sex, 'bg-' + value.sex]"></view>
+							<view class="iconfont" 
+							:class="['icon-' + value.sex, 'bg-' + value.sex]"></view>
 						</view>
 						<view class="user-info-extra">
 							<view 
@@ -177,5 +178,6 @@
 		left: 0;
 		top: 0;
 		height: 140upx;
+		z-index: 100;
 	}
 </style>

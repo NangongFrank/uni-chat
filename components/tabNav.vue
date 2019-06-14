@@ -7,7 +7,6 @@
 					<view class="user-head">
 						<image src="/static/assets/user-head.png"></image>
 					</view>
-					
 				</view>
 				<view>世界</view>
 			</view>
@@ -35,12 +34,15 @@
 					},{
 					font: 'icon-message',
 					value: '消息',
+					path: '/pages/extra/message',
 					},{
 					font: 'icon-application',
 					value: '应用',
+					path: '/pages/extra/application',
 					},{
 					font: 'icon-myself',
 					value: '我的',
+					path: '/pages/extra/myself',
 					},{
 					font: 'icon-card-wrap',
 					value: '卡券',
