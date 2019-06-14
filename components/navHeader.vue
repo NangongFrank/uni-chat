@@ -96,7 +96,8 @@
 		display: flex;
 		@{ai}: center;
 		// developing time `padding-top: 100upx;`, producting time `padding-top: 0;`
-		padding: 100upx 12upx 0;
+		// padding: 100upx 12upx 0;
+		padding: 0 12upx 0;
 		@{bgc}: #000;
 		&-left,
 		&-right {
@@ -133,7 +134,8 @@
 			display: flex;
 			color: #fff;
 			@{ai}: baseline;
-			padding: 28upx 0;
+			// padding: 28upx 0;
+			padding: 14upx 0;
 			@{fs}: 36upx;
 			.iconfont {
 				@{fs}: 42upx;

@@ -3,8 +3,7 @@
 		<view class="header">
 			<nav-header />
 		</view>
-		<view class="padding-70"></view>
-		<scroll-view scroll-y>
+		<scroll-view scroll-y :style="{height: viewMinHeight}">
 			<view class="ul">
 				<view class="li"
 				v-for="(value, index) in firendList"
@@ -91,12 +90,32 @@
 					tip: ['90后', '音乐', '美食'],
 					cover: '/static/assets/myfirends/firend-10.png',
 				}],
-				
+				viewMinHeight: 0,
+				pageMinHeight: 0,
 			}
 		},
 		components: {
 			navHeader,
-		}
+		},
+		onReady() {
+			let vm = this
+			uni.getSystemInfo({
+				success({pixelRatio, screenHeight}) {
+					// top 即header占据的空间高度(绝对值)
+					const top = 31
+					let height = 0,
+						hei = 0
+					// #ifdef MP-WEIXIN
+					height = screenHeight
+					hei = screenHeight - top
+					height += 'px'
+					hei += 'px'
+					// #endif
+					vm.pageMinHeight = height
+					vm.viewMinHeight = hei
+				},
+			})
+		},
 	}
 </script>
 <style lang="less" scoped>
@@ -171,13 +190,5 @@
 	}
 	.bg-male {
 		@{bgc}: @bg-male;
-	}
-	.header {
-		width: 750upx;
-		position: fixed;
-		left: 0;
-		top: 0;
-		height: 140upx;
-		z-index: 100;
 	}
 </style>

@@ -7,11 +7,9 @@
 		<view class="serivce">
 			<customer-service />
 		</view>
-		<view class="padding-100"></view>
 		<view>
-			<chat-room :reqmsg="msg" />
+			<chat-room :reqmsg="msg" :pual-height="viewMinHeight"/>
 		</view>
-		<view class="padding-70"></view>
 		<view class="send-box">
 			<chat-send-box @resmsg="resMsg" />
 		</view>
@@ -25,7 +23,9 @@
 	export default {
 		data() {
 			return {
-				msg: ""
+				msg: "",
+				viewMinHeight: 0,
+				pageMinHeight: 0,
 			}
 		},
 		components: {
@@ -42,6 +42,25 @@
 		},
 		onLoad() {
 			
+		},
+		onReady() {
+			let vm = this
+			uni.getSystemInfo({
+				success({pixelRatio, screenHeight}) {
+					// top 即header占据的空间高度(绝对值)
+					const top = 68
+					let height = 0,
+						hei = 0
+					// #ifdef MP-WEIXIN
+					height = screenHeight
+					hei = screenHeight - top
+					height += 'px'
+					hei += 'px'
+					// #endif
+					vm.pageMinHeight = height
+					vm.viewMinHeight = hei
+				},
+			})
 		},
 	}
 </script>

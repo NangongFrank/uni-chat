@@ -95,12 +95,14 @@
 			uni.getSystemInfo({
 				success({pixelRatio, screenHeight}) {
 					// top 即header占据的空间高度(绝对值)
-					const top = 120
-					let height = pixelRatio * screenHeight,
-						hei = (screenHeight - top) * pixelRatio
+					const top = 31
+					let height = 0,
+						hei = 0
 					// #ifdef MP-WEIXIN
-					height += 'rpx'
-					hei += 'rpx'
+					height = screenHeight
+					hei = screenHeight - top
+					height += 'px'
+					hei += 'px'
 					// #endif
 					vm.pageMinHeight = height
 					vm.viewMinHeight = hei

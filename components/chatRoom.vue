@@ -1,6 +1,6 @@
 <template>
 	<view class="content">
-		<scroll-view scroll-y :scroll-top="lastMsgSide">
+		<scroll-view scroll-y :scroll-top="lastMsgSide" :style="{height: pualHeight}">
 			<view class="ul">
 				<view class="li"
 				v-for="(value, index) in userList"
@@ -26,6 +26,10 @@
 			reqmsg: {
 				type: String,
 				default: "",
+			},
+			pualHeight: {
+				type: [String, Number],
+				default: 0,
 			},
 		},
 		data() {
@@ -115,9 +119,6 @@
 	.ul {
 		padding-left: 50upx;
 		
-	}
-	scroll-view {
-		height: 960upx;
 	}
 	.li {
 		.username,

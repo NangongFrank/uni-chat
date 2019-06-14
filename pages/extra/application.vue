@@ -31,11 +31,18 @@
 			let vm = this
 			uni.getSystemInfo({
 				success({pixelRatio, screenHeight}) {
-					let height = pixelRatio * screenHeight
+					// top 即header占据的空间高度(绝对值)
+					const top = 31
+					let height = 0,
+						hei = 0
 					// #ifdef MP-WEIXIN
-					height += 'rpx'
+					height = screenHeight
+					hei = screenHeight - top
+					height += 'px'
+					hei += 'px'
 					// #endif
 					vm.pageMinHeight = height
+					vm.viewMinHeight = hei
 				},
 			})
 		},
