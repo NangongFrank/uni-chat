@@ -58,16 +58,19 @@
 		position: fixed;
 		right: 0;
 		top: 300upx;
+		z-index: 100;
 	}
 	.serivce {
 		position: fixed;
 		left: 0;
 		top: 650upx;
+		z-index: 100;
 	}
 	.send-box {
 		position: fixed;
 		bottom: 0;
 		left: 0;
 		width: 750upx;
+		z-index: 100;
 	}
 </style>

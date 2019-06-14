@@ -15,7 +15,7 @@
 			v-for="(value, index) in tabList"
 			:class="{'mt380': value.font == 'icon-card-wrap'}"
 			:key="index"
-			@tap="jumpPage(value)">
+			@tap="jumpToPage(value.path)">
 				<text class="tip-icon iconfont"
 				:class="value.font"></text>
 				<view class="value-font" 
@@ -31,7 +31,7 @@
 				tabList: [{
 					font: 'icon-firends',
 					value: '好友',
-					path: '/pages/extra/firends'
+					path: '/pages/extra/firends',
 					},{
 					font: 'icon-message',
 					value: '消息',
@@ -51,8 +51,7 @@
 			}
 		},
 		methods: {
-			jumpPage({path}) {
-				console.log(path);
+			jumpToPage(path) {
 				if(!path) {
 					uni.showToast({
 						title: '功能开发中',
