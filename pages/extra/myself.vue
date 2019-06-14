@@ -8,39 +8,85 @@
 			:back-step-path="'/pages/index/index'"
 			:action-name="'返回'"/>
 		</view>
-		<view class="box">
-			<view class="box-nav">
-				<view class="box-nav-action">
-					<view>匿名模式</view>
-					<switch checked @change="navModelChange" />
+		<scroll-view scroll-y :style="{'height': viewMinHeight}">
+			<view class="box">
+				<view class="box-nav">
+					<view class="box-nav-action">
+						<view>匿名模式</view>
+						<switch checked @change="navModelChange" />
+					</view>
+					<view class="box-nav-wast" @tap="wastMoney">
+						<view>充值</view>
+						<view class="iconfont icon-delta-right"></view>
+					</view>
 				</view>
-				<view class="box-nav-wast">
-					<view>充值</view>
-					<view class="iconfont icon-delta-right"></view>
+				<view class="box-aside">
+					<view class="box-aside-cover">
+						<view class="cover">
+							<image src="/static/assets/myself/user-head.png"></image>
+						</view>
+						<view class="cash">余额88</view>
+					</view>
+					<view class="box-aside-info">
+						<view class="name">
+							<view class="user-name">ALEX</view>
+							<navigator url="#" class="iconfont icon-edit-pen"></navigator>
+							<view class="sex iconfont"
+							:class="['icon-' + 'female', 'bg-' + 'female']"></view>
+						</view>
+						<view class="tip">信书1级</view>
+					</view>
+				</view>
+				<view class="box-footer">这家伙很懒，什么都没有留下</view>
+			</view>
+			<view class="extra">
+				<view class="extra-vip">
+					<view class="extra-vip-info">
+						<view class="iconfont icon-vip"></view>
+						<view class="vip-tip">开通VIP</view>
+					</view>
+					<view class="iconfont icon-column-line" style="color: #fff;"></view>
+					<navigator url="#" class="extra-vip-tip">
+						查看VIP的尊贵的特权
+					</navigator>
+				</view>
+				<view class="extra-barrage">
+					<view class="extra-barrage-title">
+						<view class="iconfont icon-mail"></view>
+						<view class="barrage">弹幕信息</view>
+					</view>
+					<view class="extra-barrage-wrapper">
+						<view class="li"
+						v-for="(value, index) in barrageList"
+						:key="index">
+							<view v-text="value.msg"></view>
+						</view>
+					</view>
+				</view>
+				<view class="extra-screen">
+					<view class="extra-screen-title">
+						<view class="iconfont icon-small-bell"></view>
+						<view class="screen">霸屏信息</view>
+					</view>
+					<view class="extra-screen-content">
+						<view class="li"
+						v-for="(value, index) in screenList"
+						:key="index">
+							<view class="msg" v-text="value.msg"></view>
+							<view class="cover">
+								<image :src="value.cover"></image>
+							</view>
+						</view>
+					</view>
+				</view>
+				<view class="extra-adjust">
+					<navigator url="#" class="extra-adjust-title">
+						<view class="iconfont icon-pen"></view>
+						<view class="adjust">意见反馈</view>
+					</navigator>
 				</view>
 			</view>
-			<view class="box-aside">
-				<view class="box-aside-cover">
-					<view class="cover">
-						<image src="/static/assets/myself/user-head.png"></image>
-					</view>
-					<view class="cash">余额88</view>
-				</view>
-				<view class="box-aside-info">
-					<view class="name">
-						<view class="user-name">ALEX</view>
-						<navigator url="#" class="iconfont icon-edit-pen"></navigator>
-						<view class="sex iconfont"
-						:class="['icon-' + 'female', 'bg-' + 'female']"></view>
-					</view>
-					<view class="tip">信书1级</view>
-				</view>
-			</view>
-			<view class="box-footer">这家伙很懒，什么都没有留下</view>
-		</view>
-		<view class="extra">
-			
-		</view>
+		</scroll-view>
 	</view>
 </template>
 <script>
@@ -50,6 +96,28 @@
 			return {
 				viewMinHeight: 0,
 				pageMinHeight: 0,
+				barrageList: [{
+					msg: '床前明月光',
+					}, {
+					msg: '地下鞋两双....',
+					}, {
+					msg: '黑云压城城欲摧',
+					}, {
+					msg: '甲光向日金鳞开。。。',
+				}],
+				screenList: [{
+					msg: '霸屏30秒',
+					cover: '/static/assets/myself/screen.png',
+					},{
+					msg: '霸屏30秒',
+					cover: '/static/assets/myself/screen.png',
+					},{
+					msg: '霸屏30秒',
+					cover: '/static/assets/myself/screen.png',
+					},{
+					msg: '霸屏30秒',
+					cover: '/static/assets/myself/screen.png',
+				}],
 			}
 		},
 		components: {
@@ -59,6 +127,13 @@
 			navModelChange({detail}) {
 				console.log(detail)
 			},
+			wastMoney() {
+				uni.showToast({
+					title: '功能暂未开放',
+					duration: 800,
+					icon: 'none',
+				})
+			}
 		},
 		onReady() {
 			let vm = this
@@ -84,6 +159,143 @@
 	@import "../../static/theme/extra/myself.less";
 	switch {
 		transform: scale(0.6);
+	}
+	.extra {
+		display: flex;
+		@{ai}:center;
+		@{fd}: column;
+		@{bgc}: @extra-bg;
+		&-adjust {
+			width: 710upx;
+			min-height: 110upx;
+			@{bgc}: @extra-adjust-bg;
+			@{bdra}: 30upx;
+			margin-bottom: 48upx;
+			&-title {
+				display: flex;
+				@{ai}: center;
+				padding: 50upx 50upx 30upx 50upx;
+				.iconfont {
+					@{bgc}: @extra-adjust-title-color;
+					width: 42upx;
+					height: 42upx;
+					@{fs}: 30upx;
+					line-height: 42upx;
+					text-align: center;
+					@{bdra}: 50%;
+					margin-right: 10upx;
+				}
+				.adjust {
+					color: @extra-adjust-title-color;
+					@{fs}: 28upx;
+				}
+			}
+		}
+		&-screen {
+			width: 710upx;
+			min-height: 380upx;
+			@{bgc}: @extra-screen-bg;
+			@{bdra}: 30upx;
+			margin: 48upx 0;
+			&-content {
+				image {
+					width: 140upx;
+					height: 140upx;
+					@{bdra}: 0 0 12upx 12upx;
+				}
+				display: flex;
+				@{jc}: space-around;
+				.li,
+				.msg {
+					@{bdra}: 12upx 12upx 0 0;
+				}
+				.msg {
+					@{fs}: 16upx;
+					@{bgc}: @extra-screen-msg-bg;
+					padding-left: 8upx;
+					display: flex;
+					@{ai}: center;
+				}
+			}
+			&-title {
+				display: flex;
+				@{ai}: center;
+				padding: 50upx 50upx 30upx 50upx;
+				.iconfont {
+					color: @extra-screen-title-color;
+					@{fs}: 46upx;
+					margin-right: 10upx;
+				}
+				.screen {
+					color: @extra-screen-title-color;
+					@{fs}: 28upx;
+				}
+			}
+		}
+		&-barrage {
+			width: 710upx;
+			min-height: 310upx;
+			@{bgc}: @extra-barrage-bg;
+			@{bdra}: 30upx;
+			&-wrapper {
+				padding: 0 50upx 30upx;
+				display: flex;
+				@{fw}: wrap;
+				.li {
+					margin: 10upx 16upx;
+					padding: 20upx 30upx;
+					@{fs}: 24upx;
+					@{bdra}: 38upx;
+					max-width: 280upx;
+					.word-online();
+					color: @extra-barrage-content-color;
+					@{bgc}: @extra-barrage-content-bg;
+				}
+			}
+			&-title {
+				display: flex;
+				@{ai}: center;
+				padding: 50upx 50upx 30upx 50upx;
+				.iconfont {
+					@{bgc}: @extra-barrage-title-color;
+					width: 42upx;
+					height: 42upx;
+					@{fs}: 30upx;
+					line-height: 42upx;
+					text-align: center;
+					@{bdra}: 50%;
+					margin-right: 10upx;
+				}
+				.barrage {
+					color: @extra-barrage-title-color;
+					@{fs}: 28upx;
+				}
+			}
+		}
+		&-vip {
+			margin: 38upx 0;
+			width: 690upx;
+			height: 68upx;
+			@{bdra}: 30upx;
+			@{bgc}: @extra-vip-bg;
+			display: flex;
+			@{ai}: center;
+			@{jc}: space-around;
+			@{fs}: 32upx;
+			.vip-tip {
+				color: @extra-vip-tip-color;
+				margin-left: 10upx;
+			}
+			&-info,
+			&-tip {
+				display: flex;
+				@{ai}: center;
+			}
+			.iconfont,
+			&-tip {
+				color: @extra-vip-simple-color;
+			}
+		}
 	}
 	.box {
 		min-height: 508upx;
