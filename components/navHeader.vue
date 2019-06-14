@@ -115,7 +115,9 @@
 			input {
 				@{fs}: 14upx;
 				color: #666;
+				padding-left: 10upx;
 			}
+			color: #fff;
 		}
 		.app-wrapper {
 			display: flex;

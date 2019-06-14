@@ -126,8 +126,7 @@
 		width: 730upx;
 		margin-bottom: 20upx;
 		padding: 8upx 20upx;
-		border-top: 2upx solid #eee;
-		border-bottom: 2upx solid #eee;
+		box-shadow: 0 2upx 16upx #ededed;
 		@{bgc}: #fff;
 		.cover,
 		image {
