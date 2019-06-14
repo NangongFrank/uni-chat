@@ -148,7 +148,11 @@
 				}
 			}
 			.cover {
-				padding: 12upx;
+				width: 180upx;
+				height: 180upx;
+				display: flex;
+				@{ai}: center;
+				@{jc}: center;
 				border: 2upx solid transparent;
 				border-top-color: @bdc-01;
 				border-right-color: @bdc-02;
