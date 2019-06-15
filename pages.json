@@ -1,23 +1,40 @@
 {
 	"pages": [
 		{
-			"path": "pages/index/index"
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText":"世界聊天室"
+			}
 		},
 		{
-			"path":"pages/extra/firends"
+			"path":"pages/extra/firends",
+			"style": {
+				"navigationBarTitleText":"好友列表"
+			}
 		},
 		{
-			"path": "pages/extra/application"
+			"path": "pages/extra/application",
+			"style": {
+				"navigationBarTitleText":"扩展应用"
+			}
 		},
 		{
-			"path": "pages/extra/message"
+			"path": "pages/extra/message",
+			"style": {
+				"navigationBarTitleText":"我的信息"
+			}
 		},
 		{
-			"path": "pages/extra/myself"
+			"path": "pages/extra/myself",
+			"style": {
+				"navigationBarTitleText":"个人主页"
+			}
 		}
 	],
 	"globalStyle": {
-		"navigationStyle": "custom"
+		"navigationStyle":"default",
+		"navigationBarBackgroundColor":"#FFFFFF",
+		"navigationBarTextStyle":"black"
 	},
 	"condition": {
 		"current": 0,

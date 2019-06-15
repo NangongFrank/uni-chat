@@ -1,13 +1,13 @@
 <template>
 	<view class="wrapper" :style="{'min-height': pageMinHeight}">
-		<view class="header">
+		<!-- <view class="header">
 			<nav-header 
 			:center-status="false" 
 			:right-status="false" 
 			:left-model="'textBackStep'"
 			:back-step-path="'/pages/index/index'"
 			:action-name="'返回'"/>
-		</view>
+		</view> -->
 		<scroll-view scroll-y :style="{'height': viewMinHeight}">
 			<view class="box">
 				<view class="box-nav">
@@ -90,7 +90,7 @@
 	</view>
 </template>
 <script>
-	import navHeader from '@/components/navHeader'
+	// import navHeader from '@/components/navHeader'
 	export default {
 		data() {
 			return {
@@ -121,7 +121,7 @@
 			}
 		},
 		components: {
-			navHeader,
+			//navHeader,
 		},
 		methods: {
 			navModelChange({detail}) {
@@ -140,7 +140,7 @@
 			uni.getSystemInfo({
 				success({pixelRatio, screenHeight}) {
 					// top 即header占据的空间高度(绝对值)
-					const top = 31
+					const top = 64
 					let height = 0,
 						hei = 0
 					// #ifdef MP-WEIXIN
@@ -162,17 +162,18 @@
 	switch {
 		transform: scale(0.6);
 	}
+	.wrapper {
+		@{bgc}: @wrapper-bg;
+	}
 	.extra {
 		display: flex;
 		@{ai}:center;
 		@{fd}: column;
-		@{bgc}: @extra-bg;
 		&-adjust {
 			width: 710upx;
 			min-height: 110upx;
 			@{bgc}: @extra-adjust-bg;
 			@{bdra}: 30upx;
-			margin-bottom: 48upx;
 			&-title {
 				display: flex;
 				@{ai}: center;

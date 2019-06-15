@@ -1,12 +1,12 @@
 <template>
 	<view class="wrapper" :style="{'min-height': pageMinHeight}">
-		<view class="header">
+		<!-- <view class="header">
 			<nav-header 
 			:center-status="false" 
 			:right-status="false" 
 			:left-model="'backChatRoom'" 
 			:back-step-path="'/pages/index/index'" />
-		</view>		
+		</view>		 -->
 		<scroll-view scroll-y :style="{'height': viewMinHeight}">
 			<view class="ul">
 				<view class="li"
@@ -33,7 +33,7 @@
 	</view>
 </template>
 <script>
-	import navHeader from '@/components/navHeader'
+	//import navHeader from '@/components/navHeader'
 	export default {
 		data() {
 			return {
@@ -88,23 +88,19 @@
 			}
 		},
 		components: {
-			navHeader,
+			//navHeader,
 		},
 		onReady() {
 			let vm = this
 			uni.getSystemInfo({
 				success({pixelRatio, screenHeight}) {
 					// top 即header占据的空间高度(绝对值)
-					const top = 31
-					let height = 0,
-						hei = 0
+					const top = 64
+					let	hei = 0
 					// #ifdef MP-WEIXIN
-					height = screenHeight
-					hei = screenHeight - top
-					height += 'px'
-					hei += 'px'
+					hei = screenHeight - top + 'px'
 					// #endif
-					vm.pageMinHeight = height
+					vm.pageMinHeight = hei
 					vm.viewMinHeight = hei
 				},
 			})

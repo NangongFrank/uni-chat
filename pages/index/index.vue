@@ -17,6 +17,7 @@
 </template>
 <script>
 	import tabNav from '@/components/tabNav'
+	import navHeader from '@/components/navHeader'
 	import chatSendBox from '@/components/chatSendBox'
 	import chatRoom from '@/components/chatRoom'
 	import customerService from '@/components/customerService'
@@ -33,6 +34,7 @@
 			chatSendBox,
 			chatRoom,
 			customerService,
+			navHeader,
 		},
 		methods: {
 			resMsg({msg}) {
@@ -53,7 +55,7 @@
 						hei = 0
 					// #ifdef MP-WEIXIN
 					height = screenHeight
-					hei = screenHeight - top
+					hei = screenHeight - top - 64
 					height += 'px'
 					hei += 'px'
 					// #endif
@@ -76,13 +78,13 @@
 	.tab-nav {
 		position: fixed;
 		right: 0;
-		top: 300upx;
+		top: 200upx;
 		z-index: 100;
 	}
 	.serivce {
 		position: fixed;
 		left: 0;
-		top: 650upx;
+		top: 450upx;
 		z-index: 100;
 	}
 	.send-box {

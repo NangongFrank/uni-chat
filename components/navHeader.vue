@@ -94,9 +94,10 @@
 	@import "../static/theme/components/tabNav.less";
 	.content {
 		display: flex;
-		@{ai}: center;
+		@{ai}: flex-end;
 		// developing time `padding-top: 100upx;`, producting time `padding-top: 0;`
 		// padding: 100upx 12upx 0;
+		height: 128upx;
 		padding: 0 12upx 0;
 		@{bgc}: #000;
 		&-left,
@@ -105,6 +106,11 @@
 		}
 		&-center {
 			flex: 1;
+		}
+		&-left {
+			display: flex;
+			@{ai}: flex-end;
+			padding-bottom: 15upx;
 		}
 		.search-wrapper {
 			width: 180upx;
@@ -124,7 +130,7 @@
 			display: flex;
 			color: #fff;
 			@{ai}: center;
-			padding: 28upx 0;
+			// padding: 18upx 0;
 			@{fs}: 36upx;
 			.iconfont {
 				@{fs}: 42upx;
@@ -135,7 +141,7 @@
 			color: #fff;
 			@{ai}: baseline;
 			// padding: 28upx 0;
-			padding: 14upx 0;
+			// padding: 14upx 0;
 			@{fs}: 36upx;
 			.iconfont {
 				@{fs}: 42upx;

@@ -1,10 +1,10 @@
 <template>
 	<view class="wrapper" :style="{'min-height': pageMinHeight}">
 		<!-- <image src="/static/assets/application/bg.png" mode="widthFix" class="bg-img"></image> -->
-		<view class="header">
+		<!-- <view class="header">
 			<nav-header :center-status="false" :right-status="false" :left-model="'appList'" />
-		</view>
-		<view class="padding-100"></view>
+		</view> -->
+		<view class="padding-70"></view>
 		<view class="content">
 			<view class="bar-action">
 				<view class="title">酒吧服务</view>
@@ -20,7 +20,7 @@
 	</view>
 </template>
 <script>
-	import navHeader from '@/components/navHeader'
+	//import navHeader from '@/components/navHeader'
 	export default {
 		data() {
 			return {
@@ -32,23 +32,18 @@
 			uni.getSystemInfo({
 				success({pixelRatio, screenHeight}) {
 					// top 即header占据的空间高度(绝对值)
-					const top = 31
-					let height = 0,
-						hei = 0
+					const top = 64
+					let hei = 0
 					// #ifdef MP-WEIXIN
-					height = screenHeight
-					hei = screenHeight - top
-					height += 'px'
-					hei += 'px'
+					hei = screenHeight - top + 'px'
 					// #endif
-					vm.pageMinHeight = height
-					vm.viewMinHeight = hei
+					vm.pageMinHeight = hei
 				},
 			})
 		},
 		components: {
-			navHeader,
-		}
+			//navHeader,
+		},
 	}
 </script>
 <style lang="less" scoped>

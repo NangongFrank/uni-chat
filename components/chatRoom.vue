@@ -117,7 +117,7 @@
 		margin-right: 10upx;
 	}
 	.ul {
-		padding-left: 50upx;
+		padding:40upx 0 10upx 50upx;
 		
 	}
 	.li {

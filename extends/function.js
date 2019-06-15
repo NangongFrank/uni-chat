@@ -15,6 +15,7 @@ function getResidueHeight(usedHeight) {
 				success({pixelRatio, screenHeight}) {
 					let height = 0,
 						hei = 0
+					usedHeight += 64
 					// #ifdef MP-WEIXIN
 					resolve({
 						pageMinHeight: screenHeight + 'px',

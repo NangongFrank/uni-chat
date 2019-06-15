@@ -1,8 +1,18 @@
 <template>
-	<view class="wrapper">
-		<view class="header">
+	<view class="wrapper" :style="{height: pageMinHeight}">
+		<!-- <view class="header">
 			<nav-header />
+		</view> -->
+		<view class="nav">
+			<view class="nav-wrapper">
+				<input v-model="serchText" 
+				confirm-type="search" 
+				placeholder="输入名称或ID">
+				<view class="iconfont icon-search"
+				@tap="searchEvent"></view>
+			</view>
 		</view>
+		<view style="height: 46px;"></view>
 		<scroll-view scroll-y :style="{height: viewMinHeight}">
 			<view class="ul">
 				<view class="li"
@@ -30,7 +40,7 @@
 	</view>
 </template>
 <script>
-	import navHeader from '@/components/navHeader'
+	//import navHeader from '@/components/navHeader'
 	export default {
 		data() {
 			return {
@@ -84,7 +94,42 @@
 					sex: 'male',
 					tip: ['90后', '音乐', '美食'],
 					cover: '/static/assets/myfirends/firend-10.png',
-				}, {
+					}, {
+					name: 'Jone',
+					sex: 'male',
+					tip: ['90后', '音乐', '美食'],
+					cover: '/static/assets/myfirends/firend-10.png',
+					}, {
+					name: 'Jone',
+					sex: 'male',
+					tip: ['90后', '音乐', '美食'],
+					cover: '/static/assets/myfirends/firend-10.png',
+					}, {
+					name: 'Jone',
+					sex: 'male',
+					tip: ['90后', '音乐', '美食'],
+					cover: '/static/assets/myfirends/firend-10.png',
+					}, {
+					name: 'Jone',
+					sex: 'male',
+					tip: ['90后', '音乐', '美食'],
+					cover: '/static/assets/myfirends/firend-10.png',
+					}, {
+					name: 'Jone',
+					sex: 'male',
+					tip: ['90后', '音乐', '美食'],
+					cover: '/static/assets/myfirends/firend-10.png',
+					}, {
+					name: 'Jone',
+					sex: 'male',
+					tip: ['90后', '音乐', '美食'],
+					cover: '/static/assets/myfirends/firend-10.png',
+					}, {
+					name: 'Jone',
+					sex: 'male',
+					tip: ['90后', '音乐', '美食'],
+					cover: '/static/assets/myfirends/firend-10.png',
+					}, {
 					name: 'Jone',
 					sex: 'male',
 					tip: ['90后', '音乐', '美食'],
@@ -95,21 +140,24 @@
 			}
 		},
 		components: {
-			navHeader,
+			//navHeader,
+		},
+		methods: {
+			searchEvent() {
+				console.log('search event')
+			},
 		},
 		onReady() {
 			let vm = this
 			uni.getSystemInfo({
 				success({pixelRatio, screenHeight}) {
 					// top 即header占据的空间高度(绝对值)
-					const top = 31
-					let height = 0,
-						hei = 0
+					const top = 64
+					let	hei = 0,
+						height = 0
 					// #ifdef MP-WEIXIN
-					height = screenHeight
-					hei = screenHeight - top
-					height += 'px'
-					hei += 'px'
+					height = screenHeight - top + 'px'
+					hei = screenHeight - top - 46 + 'px'
 					// #endif
 					vm.pageMinHeight = height
 					vm.viewMinHeight = hei
@@ -140,6 +188,7 @@
 			}
 			display: flex;
 			color: #fff;
+			margin: 20upx 0;
 			@{bgi}: radial-gradient(circle at center, @radial-start, @radial-end 100upx);
 		}
 		.user-info {
@@ -190,5 +239,38 @@
 	}
 	.bg-male {
 		@{bgc}: @bg-male;
+	}
+	.nav {
+		display: flex;
+		@{ai}: center;
+		@{jc}: flex-end;
+		position: fixed;
+		top: 0;
+		left: 0;
+		z-index: 100;
+		height: 92upx;
+		width: 750upx;
+		&-wrapper {
+			display: flex;
+			@{ai}: center;
+			@{bdra}: 12upx;
+			@{bgc}: #535353;
+			margin-right: 20upx;
+			padding: 0 12upx;
+			input {
+				flex:1;
+				@{fs}: 26upx;
+				color: #666;
+			}
+			.iconfont {
+				width: 40upx;
+				height: 40upx;
+				display: flex;
+				@{ai}: center;
+				@{jc}: center;
+			}
+			color: #fff;
+			
+		}
 	}
 </style>
