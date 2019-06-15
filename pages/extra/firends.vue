@@ -3,13 +3,16 @@
 		<!-- <view class="header">
 			<nav-header />
 		</view> -->
-		<view class="nav">
+		<view class="nav" @tap="seachBoxEvent">
 			<view class="nav-wrapper">
-				<input v-model="serchText" 
-				confirm-type="search" 
-				placeholder="输入名称或ID">
-				<view class="iconfont icon-search"
-				@tap="searchEvent"></view>
+				<input 
+				confirm-type="search"
+				v-model="searchValue"
+				placeholder="输入名称或ID"
+				data-act="input"
+				@confirm="seachEvent"
+				v-if="isSearch">
+				<view class="iconfont icon-search" data-act="search"></view>
 			</view>
 		</view>
 		<view style="height: 46px;"></view>
@@ -137,15 +140,36 @@
 				}],
 				viewMinHeight: 0,
 				pageMinHeight: 0,
+				isSearch: false,
+				searchValue: '',
 			}
 		},
 		components: {
 			//navHeader,
 		},
 		methods: {
-			searchEvent() {
-				console.log('search event')
+			seachBoxEvent({target}) {
+				let vm = this,
+					dataset = target.dataset,
+					act = dataset.act
+				if(act == 'search') {
+					if(!vm.isSearch) {
+						vm.isSearch = true
+					} else if(!vm.searchValue) {
+						vm.isSearch = false
+					} else {
+						// 进行搜索事件
+						console.log('search event')
+					}
+				} else if(act != 'input') {
+					vm.isSearch = false
+				}
 			},
+			seachEvent() {
+				let vm = this,
+					text = vm.searchValue
+				console.log('confirm event and content is' + text )
+			}
 		},
 		onReady() {
 			let vm = this
@@ -260,7 +284,6 @@
 			input {
 				flex:1;
 				@{fs}: 26upx;
-				color: #666;
 			}
 			.iconfont {
 				width: 40upx;
