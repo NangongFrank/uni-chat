@@ -48,7 +48,7 @@
 					value: '卡券',
 					},{
 					font: 'icon-lightning',
-					value: '闪约',
+					value: '结友',
 				}],
 			}
 		},
