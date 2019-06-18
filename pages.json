@@ -29,36 +29,11 @@
 			"style": {
 				"navigationBarTitleText":"我的信息"
 			}
-		},{
-			"path":"pages/children/myself/store",
-			"style": {
-				"navigationBarTitleText":"我的门店"
-			}
-		},{
-			"path":"pages/children/myself/video",
-			"style": {
-				"navigationBarTitleText":"我的视频"
-			}
-		},{
-			"path":"pages/children/myself/article",
-			"style": {
-				"navigationBarTitleText":"我的文章"
-			}
-		},{
-			"path":"pages/children/myself/photo",
-			"style": {
-				"navigationBarTitleText":"我的相册"
-			}
-		},{
-			"path":"pages/children/myself/home",
-			"style": {
-				"navigationBarTitleText":"个人主页"
-			}
 		},
 		{
 			"path": "pages/extra/myself",
 			"style": {
-				"navigationBarTitleText":"个人主页"
+				"navigationBarTitleText":"我的"
 			}
 		}
 	],
@@ -68,7 +43,7 @@
 		"navigationBarTextStyle":"black"
 	},
 	"condition": {
-		"current": 4,
+		"current": 0,
 		"list": [{
 			"path":"pages/extra/firends",
 			"name":"好友列表"
@@ -81,21 +56,6 @@
 		}, {
 			"path": "pages/extra/myself",
 			"name":"我的"
-		}, {
-			"path": "pages/children/myself/store",
-			"name":"我的门店"
-		}, {
-			"path": "pages/children/myself/video",
-			"name":"我的视频"
-		}, {
-			"path": "pages/children/myself/photo",
-			"name":"我的相册"
-		}, {
-			"path": "pages/children/myself/article",
-			"name":"我的文章"
-		}, {
-			"path": "pages/children/myself/home",
-			"name":"个人主页"
 		}]
 	}
 }
