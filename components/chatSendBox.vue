@@ -78,6 +78,17 @@
 					}
 				}
 			},
+			sendRequest() {
+				let vm = this
+				vm.$req('sendChatContent', {
+					userId: 0,
+					typeCode: 0,
+					content: '',
+					files: '',  // source
+				}, data => {
+					
+				})
+			}
 		}
 	}
 </script>
