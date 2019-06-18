@@ -83,6 +83,17 @@
 				
 			},
 		},
+		onReady() {
+			let vm = this
+			//console.log(vm.$req);
+			vm.$req('getChatContent', {
+				typeCode: 1,
+				pageNo: 1,
+				weChatSize: 20,
+			}, data => {
+				console.log(data)
+			})
+		},
 		onLoad() {
 			let vm = this
 			vm.lastMsgSide = vm.userList.length * 100
