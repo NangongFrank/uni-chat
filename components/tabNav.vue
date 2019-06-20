@@ -12,7 +12,7 @@
 			</view>
 			<view class="li"
 			v-for="(value, index) in tabList"
-			:class="{'mt380': value.font == 'icon-card-wrap'}"
+			:class="{'mt380': index == 4}"
 			:key="index"
 			@tap="jumpToPage(value.path)">
 				<text class="tip-icon iconfont"
@@ -43,12 +43,12 @@
 					font: 'icon-myself',
 					value: '我的',
 					path: '/pages/extra/myself',
-					},{
+					},/* {
 					font: 'icon-card-wrap',
 					value: '卡券',
-					},{
+					}, */{
 					font: 'icon-lightning',
-					value: '结友',
+					value: '寻TA',
 				}],
 			}
 		},

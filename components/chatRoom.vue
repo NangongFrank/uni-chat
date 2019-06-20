@@ -8,7 +8,7 @@
 					<view class="cover">
 						<image :src="value.cover" :class="['bd-' + value.sex]"></image>
 					</view>
-					<view>
+					<view @tap="jumpToChat(value)">
 						<view class="info">
 							<view class="iconfont" :class="['icon-' + value.sex, 'bg-' + value.sex]"></view>
 							<view class="username" v-text="value.name"></view>
@@ -39,11 +39,13 @@
 					sex: 'male',
 					msg: '有没有小姐姐？？本人想交个朋友。',
 					cover: '/static/assets/chatroom/user-head.png',
+					isFirend: true,					
 					}, {
 					name: 'Linda',
 					sex: 'female',
 					msg: '在的，哈哈哈哈，你多大？',
 					cover: '/static/assets/chatroom/user-head.png',
+					isFirend: true,
 					}, {
 					name: '文文',
 					sex: 'female',
@@ -82,17 +84,36 @@
 			tapUser() {
 				
 			},
+			jumpToChat({name, isFirend, isMe}) {
+				if(isFirend) {
+					uni.navigateTo({
+						url: '/pages/children/chatFirend?name=' + name,
+					})
+				} else if(!isMe){
+					uni.showToast({
+						title: '对方不是好友',
+						duration: 800,
+						icon: 'none',
+					})
+				} else {
+					uni.showToast({
+						title: '选中了自己',
+						duration: 800,
+						icon: 'none',
+					})
+				}
+			},
 		},
 		onReady() {
 			let vm = this
 			//console.log(vm.$req);
-			vm.$req('getChatContent', {
+			/* vm.$req('getChatContent', {
 				typeCode: 1,
 				pageNo: 1,
 				weChatSize: 20,
 			}, data => {
 				console.log(data)
-			})
+			}) */
 		},
 		onLoad() {
 			let vm = this
@@ -102,12 +123,13 @@
 			reqmsg(value) {
 				let vm = this,
 					len = vm.userList.length + 1
-				console.log(value)
+				// console.log(value)
 				vm.userList.push({
-					name: '城市中的星星',
+					name: '爱无边界',
 					sex: 'male',
 					msg: value,
-					cover: '/static/assets/chatroom/user-head.png',
+					cover: '/static/assets/user-head.png',
+					isMe: true,
 				})
 				vm.lastMsgSide = len * 100
 			}

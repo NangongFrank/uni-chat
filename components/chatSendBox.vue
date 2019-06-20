@@ -5,7 +5,9 @@
 				<view class="iconfont icon-micro"></view>
 			</view>
 			<view class="input-area">
-				<textarea maxlength="36" v-model="inputValue" value="" auto-height show-confirm-bar @confirm="sendMsg"/>
+				<textarea maxlength="36" value="" auto-height
+				v-model="inputValue" 
+				:show-confirm-bar="false"/>
 			</view>
 			<view class="action-area">
 				<view class="view iconfont icon-smell-face"></view>
@@ -35,16 +37,19 @@
 			}
 		},
 		methods: {
-			sendMsg({value}) {
+			/* sendMsg({value}) {
 				let vm = this
 				vm.$emit("resmsg", {msg: value})
 				vm.inputValue = ""
-			},
+			}, */
 			send() {
 				let vm = this,
 					msg = vm.inputValue
 				vm.$emit("resmsg", {msg})
-				vm.inputValue = ""
+				setTimeout(() => {
+					vm.inputValue = ""
+					console.log(vm.inputValue)
+				}, 100)
 			},
 			hideExtra({target}) {
 				let obj = target.dataset,
@@ -80,15 +85,15 @@
 			},
 			sendRequest() {
 				let vm = this
-				vm.$req('sendChatContent', {
+				/* vm.$req('sendChatContent', {
 					userId: 0,
 					typeCode: 0,
 					content: '',
 					files: '',  // source
 				}, data => {
 					
-				})
-			}
+				}) */
+			},
 		}
 	}
 </script>
@@ -103,21 +108,19 @@
 		@{bgc}: @wrapper-bg;
 		padding: 0 10upx;
 	}
-	.input-area {
-		padding: 30upx 14upx;
-		textarea {
-			width: 480upx;
-			@{bgc}: #fff;
-			color: #333;
-			padding: 14upx 20upx;
-			@{bdra}: 20upx;
-		}
+	textarea {
+		margin: 30upx 14upx;
+		width: 460upx;
+		@{bgc}: #fff;
+		color: #333;
+		padding: 14upx 20upx;
+		@{bdra}: 20upx;
 	}
 	.action-area {
 		display: flex;
-		@{jc}: space-between;
+		@{jc}: space-around;
 		@{ai}: center;
-		width: 136upx;
+		width: 146upx;
 		.iconfont {
 			@{fs}: 40upx;
 			color: @simple-token;
@@ -132,10 +135,10 @@
 			@{bgc}: #fff;
 		}
 		.send-btn {
-			@{fs}: 20upx;
-			width: 65upx;
-			height: 40upx;
-			@{bdra}: 20upx;
+			@{fs}: 24upx;
+			width: 80upx;
+			height: 52upx;
+			@{bdra}: 26upx;
 			@{bgc}: @send-bg;
 			color: #fff;
 			display: flex;

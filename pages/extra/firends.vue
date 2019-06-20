@@ -24,7 +24,7 @@
 					<view class="cover">
 						<image :src="value.cover"></image>
 					</view>
-					<view class="user-info">
+					<view class="user-info" @tap="jumpToChat(value)">
 						<view class="user-info-base">
 							<view class="name" v-text="value.name"></view>
 							<view class="iconfont" 
@@ -169,7 +169,12 @@
 				let vm = this,
 					text = vm.searchValue
 				console.log('confirm event and content is' + text )
-			}
+			},
+			jumpToChat({name}) {
+				uni.navigateTo({
+					url: '/pages/children/chatFirend?name=' + name,
+				})
+			},
 		},
 		onReady() {
 			let vm = this

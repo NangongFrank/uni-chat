@@ -1,7 +1,11 @@
 <script>
 	export default {
 		 onLaunch() {
-			 
+			 // uni.getSystemInfo({
+			 // 	success(options) {
+				// 	console.log(options)
+				// }
+			 // })
 		 },
 		 onShow() {
 			 

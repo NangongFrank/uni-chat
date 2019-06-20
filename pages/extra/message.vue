@@ -15,7 +15,7 @@
 					<view class="cover">
 						<image :src="value.cover"></image>
 					</view>
-					<view class="tip">
+					<view class="tip" @tap="jumpToChat(value)">
 						<view class="tip-info">
 							<view class="tip-info-name"
 							v-text="value.name"></view>
@@ -105,6 +105,13 @@
 				},
 			})
 		},
+		methods: {
+			jumpToChat({name}) {
+				uni.navigateTo({
+					url: '/pages/children/chatFirend?name=' + name,
+				})
+			},
+		}
 	}
 </script>
 <style lang="less" scoped>
