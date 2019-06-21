@@ -13,6 +13,7 @@
 		@touchend="endSide">
 			<view class="threebox-li"
 			:class="['ps-' + index]"
+			@tap="jumpToChat(value)"
 			v-for="(value, index) in userList"
 			:key="index">
 				<image :src="value.cover"></image>
@@ -129,6 +130,11 @@
 					vm.isFinding = false
 				}, 2000)
 				
+			},
+			jumpToChat(value) {
+				uni.navigateTo({
+					url:'/pages/children/chatFirend?name=' + 'stranger'
+				})
 			},
 		},
 		watch: {
