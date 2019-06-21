@@ -8,7 +8,7 @@
 					<view class="time">星期一 09:00</view>
 					<view class="li"
 					:class="{me: value.isMe, firend: !value.isMe}">
-						<view class="cover">
+						<view class="cover" @tap="seeFirend(value)">
 							<image :src="value.cover"></image>
 						</view>
 						<view>
@@ -58,6 +58,11 @@
 			tapUser() {
 				
 			},
+			seeFirend() {
+				uni.navigateTo({
+					url: "/pages/children/userHome?isFirend=" + 1
+				})
+			}
 		},
 		onReady() {
 			let vm = this

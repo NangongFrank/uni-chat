@@ -49,6 +49,7 @@
 					}, */{
 					font: 'icon-lightning',
 					value: '寻TA',
+					path: '/pages/extra/findTa',
 				}],
 			}
 		},

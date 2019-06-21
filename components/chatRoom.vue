@@ -5,7 +5,7 @@
 				<view class="li"
 				v-for="(value, index) in userList"
 				:key="index">
-					<view class="cover">
+					<view class="cover" @tap="seeUser(value)">
 						<image :src="value.cover" :class="['bd-' + value.sex]"></image>
 					</view>
 					<view @tap="jumpToChat(value)">
@@ -90,10 +90,14 @@
 						url: '/pages/children/chatFirend?name=' + name,
 					})
 				} else if(!isMe){
-					uni.showToast({
+					/* uni.showToast({
 						title: '对方不是好友',
 						duration: 800,
 						icon: 'none',
+					}) */
+					// stranger chat
+					uni.navigateTo({
+						url: '/pages/children/chatFirend?name=' + name
 					})
 				} else {
 					uni.showToast({
@@ -102,6 +106,16 @@
 						icon: 'none',
 					})
 				}
+			},
+			seeUser({isFirend}) {
+				if(isFirend) {
+					isFirend = 1
+				} else {
+					isFirend = 0
+				}
+				uni.navigateTo({
+					url: '/pages/children/userHome?isFirend=' + isFirend
+				})
 			},
 		},
 		onReady() {

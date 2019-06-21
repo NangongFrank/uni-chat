@@ -45,7 +45,6 @@
 						v-for="(value, index) in tags"
 						:key="index"
 						v-text="value.value"></view>
-						<navigator url="/pages/children/addTag" class="iconfont icon-edit-pen"></navigator>
 					</view>
 				</view>
 			</view>
@@ -96,6 +95,15 @@
 					</navigator> 
 				</view>-->
 			</view>
+			<view class="user-action">
+				<view class="myfirend" v-if="isFirend">
+					<view @tap="chatUser">发送消息</view>
+				</view>
+				<view class="stranger" v-else>
+					<view class="iconfont icon-adduser" @tap="addUser">添加</view>
+					<view class="iconfont icon-message" @tap="chatUserLittle">私聊</view>
+				</view>
+			</view>
 		</scroll-view>
 	</view>
 </template>
@@ -106,6 +114,7 @@
 			return {
 				viewMinHeight: 0,
 				pageMinHeight: 0,
+				isFirend: false,
 				tags: [{
 					value: '90后'
 					}, {
@@ -148,6 +157,9 @@
 		components: {
 			//navHeader,
 		},
+		onLoad({isFirend}) {
+			this.isFirend = isFirend
+		},
 		methods: {
 			navModelChange({detail}) {
 				console.log(detail)
@@ -158,7 +170,39 @@
 					duration: 800,
 					icon: 'none',
 				})
-			}
+			},
+			chatUser() {
+				// 好友直接聊天
+				uni.navigateTo({
+					url: '/pages/children/chatFirend'
+				})
+			},
+			addUser() {
+				// 添加用户
+				uni.showModal({
+					content: '确定添加xxx为好友么',
+					success() {
+						uni.showToast({
+							title: '添加成功',
+							duration: 900,
+						})
+					},
+					fail() {
+						uni.showToast({
+							title: '已取消添加',
+							duration: 900,
+							icon: 'none',
+						})
+					}
+				})
+			},
+			chatUserLittle() {
+				// stranger chat
+				uni.navigateTo({
+					url: '/pages/children/chatFirend?name=' + 'stranger'
+				})
+			},
+			
 		},
 		onReady() {
 			let vm = this
@@ -189,6 +233,46 @@
 	}
 	.wrapper {
 		@{bgc}: @wrapper-bg;
+	}
+	.user-action {
+		position: absolute;
+		bottom: 98upx;
+		left: 0;
+		width: 750upx;
+		padding: 20upx 0;
+		.myfirend,
+		.stranger {
+			display: flex;
+			height: 80upx;
+			padding: 0 70upx;
+			view {
+				display: flex;
+				@{ai}: center;
+				@{jc}: center;
+				@{bgc}: #4529a2;
+				@{bdra}: 40upx;
+			}
+			&,
+			.iconfont {
+				@{fs}: 28upx;
+				color: #fff;
+			}
+			.iconfont {
+				margin-right: 8upx;
+			}
+		}
+		.stranger {
+			@{jc}: space-between;
+			view {
+				width: 280upx;
+			}
+		}
+		.myfirend {
+			@{jc}: center;
+			view {
+				width: 598upx;
+			}
+		}
 	}
 	.extra {
 		display: flex;
