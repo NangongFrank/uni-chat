@@ -7,8 +7,8 @@
 		<image class="cover" src="/static/assets/findta/cover.png" mode="widthFix"
 		v-if="isFinding" 
 		:class="{animation: isFinding}"></image>
-		
-		<view class="threebox" 
+		<view class="threebox"
+		v-if="!isFinding"
 		@touchstart="startSide"
 		@touchend="endSide">
 			<view class="threebox-li"
