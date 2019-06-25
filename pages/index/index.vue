@@ -50,7 +50,7 @@
 			uni.getSystemInfo({
 				success({pixelRatio, screenHeight}) {
 					// top 即header占据的空间高度(绝对值)
-					const top = 68
+					const top = 50
 					let height = 0,
 						hei = 0
 					// #ifdef MP-WEIXIN
