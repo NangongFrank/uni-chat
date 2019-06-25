@@ -10,7 +10,7 @@
 	</view>
 </template>
 <script>
-	import chatSendBox from '@/components/chatSendBox'
+	import chatSendBox from '@/components/sendBox'
 	import chatRoom from '@/components/chatRoomFirend'
 	export default {
 		data() {

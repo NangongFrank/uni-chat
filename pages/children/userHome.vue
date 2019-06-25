@@ -49,7 +49,7 @@
 				</view>
 			</view>
 			<view class="extra">
-				<!-- <view class="extra-vip">
+				<view class="extra-vip">
 					<view class="extra-vip-info">
 						<view class="iconfont icon-vip"></view>
 						<view class="vip-tip">开通VIP</view>
@@ -58,7 +58,7 @@
 					<navigator url="#" class="extra-vip-tip">
 						查看VIP的尊贵的特权
 					</navigator>
-				</view> -->
+				</view>
 				<!-- <view class="extra-barrage">
 					<view class="extra-barrage-title">
 						<view class="iconfont icon-mail"></view>
@@ -88,12 +88,12 @@
 						</view>
 					</view>
 				</view> -->
-				<!-- <view class="extra-adjust">
+				<view class="extra-adjust">
 					<navigator url="#" class="extra-adjust-title">
 						<view class="iconfont icon-pen"></view>
 						<view class="adjust">意见反馈</view>
 					</navigator> 
-				</view>-->
+				</view>
 			</view>
 			<view class="user-action">
 				<view class="myfirend" v-if="isFirend">
@@ -157,8 +157,9 @@
 		components: {
 			//navHeader,
 		},
-		onLoad({isFirend}) {
+		onLoad({isFirend, delta}) {
 			this.isFirend = isFirend
+			console.log(delta)
 		},
 		methods: {
 			navModelChange({detail}) {

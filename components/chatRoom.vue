@@ -13,7 +13,9 @@
 							<view class="iconfont" :class="['icon-' + value.sex, 'bg-' + value.sex]"></view>
 							<view class="username" v-text="value.name"></view>
 						</view>
-						<view class="msg" v-text="value.msg"></view>
+						<view class="msg"
+						:class="{'is-me': value.isMe}"
+						v-text="value.msg"></view>
 					</view>
 				</view>
 			</view>
@@ -71,6 +73,7 @@
 					sex: 'male',
 					msg: '啊师傅挖方u我却认为。',
 					cover: '/static/assets/chatroom/user-head.png',
+					isMe: true,
 					}, {
 					name: 'Tell',
 					sex: 'male',
@@ -181,11 +184,14 @@
 		margin-bottom: 60upx;
 		.msg {
 			@{bdra}: 10upx;
-			@{bgi}: linear-gradient(to bottom, @chat-bg-start, @chat-bg-end);
+			@{bgc}: rgba(126, 206, 244, .3);
 			padding: 16upx 12upx;
 			margin-top: 10upx;
 			text-align: justify;
 			max-width: 400upx;
+		}
+		.is-me {
+			@{bgc}: rgba(126, 206, 244, .9);
 		}
 		.info {
 			display: flex;

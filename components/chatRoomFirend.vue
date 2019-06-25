@@ -1,6 +1,31 @@
 <template>
 	<view class="content">
 		<scroll-view scroll-y :scroll-top="lastMsgSide" :style="{height: pualHeight}">
+			<view class="introduce">
+				<view class="wrapper">
+					<view class="introduce-nav">
+						<image src="/static/assets/myself/chatFirend/firend.jpg"></image>
+						<view class="progress-box">
+							<view>匹配度92.0%</view>
+						</view>
+						<image src="/static/assets/myself/chatFirend/me.jpg"></image>
+					</view>
+					<view class="introduce-ct">
+						<view class="item">
+							<view class="iconfont icon-dot"></view>
+							<view>你们都是好看的90后</view>
+						</view>
+						<view class="item">
+							<view class="iconfont icon-dot"></view>
+							<view>最近即将上映的电影，有那几部是你非看不可的？</view>
+						</view>
+						<view class="item">
+							<view class="iconfont icon-dot"></view>
+							<view>跟ta聊聊你这辈子做过最疯狂的事情吧</view>
+						</view>
+					</view>
+				</view>
+			</view>
 			<view class="ul">
 				<view
 				v-for="(value, index) in userList"
@@ -97,6 +122,55 @@
 </script>
 <style lang="less" scoped>
 	@import "../static/config.less";
+	.introduce {
+		padding: 0 20upx;
+		margin-top: 10upx;
+		.wrapper {
+			@{bdra}: 24upx;
+			box-shadow: 1upx 2upx 10upx 2upx #bbb;
+			padding: 28upx 60upx;
+		}
+		&-ct {
+			@{fs}: 24upx;
+			.item {
+				display: flex;
+				@{ai}: baseline;
+				margin: 14upx 0;
+				view {
+					text-align: justify;
+				}
+			}
+			.iconfont {
+				color: #8e52b1;
+				@{fs}: 18upx;
+				margin-right: 10upx;
+			}
+		}
+		&-nav {
+			display: flex;
+			@{ai}: center;
+			@{jc}: space-around;
+			@{fs}: 20upx;
+			color: #eee;
+			margin-bottom: 20upx;
+			.progress-box {
+				width: 160upx;
+				height: 36upx;
+				@{bdra}: 18upx;
+				@{bgc}: #e6e6e6;
+				position: relative;
+				view {
+					width: 92%;
+					height: 36upx;
+					@{bdra}: 18upx;
+					@{bgi}: linear-gradient(to right, #8e52b2, #c86fa0);
+					display: flex;
+					@{ai}: center;
+					@{jc}: center;
+				}
+			}
+		}
+	}
 	image {
 		width: 87upx;
 		height: 87upx;

@@ -1,12 +1,11 @@
 <template>
-	<view class="wrapper" :style="{'min-height': pageMinHeight}">
-		<!-- <view class="header">
-			<nav-header 
-			:center-status="false" 
-			:right-status="false" 
-			:left-model="'backChatRoom'" 
-			:back-step-path="'/pages/index/index'" />
-		</view>		 -->
+	<view>
+		<view class="search">
+			<view class="search-box">
+				<view class="iconfont icon-search"></view>
+				<input confirm-type="search" placeholder="搜索名称或聊天记录" v-model="searchText"/>
+			</view>
+		</view>
 		<scroll-view scroll-y :style="{'height': viewMinHeight}">
 			<view class="ul">
 				<view class="li"
@@ -33,7 +32,6 @@
 	</view>
 </template>
 <script>
-	//import navHeader from '@/components/navHeader'
 	export default {
 		data() {
 			return {
@@ -84,11 +82,8 @@
 					time: '6-12',
 				}],
 				viewMinHeight: 0,
-				pageMinHeight: 0,
+				searchText: "",
 			}
-		},
-		components: {
-			//navHeader,
 		},
 		onReady() {
 			let vm = this
@@ -97,10 +92,7 @@
 					// top 即header占据的空间高度(绝对值)
 					const top = 64
 					let	hei = 0
-					// #ifdef MP-WEIXIN
-					hei = screenHeight - top + 'px'
-					// #endif
-					vm.pageMinHeight = hei
+					hei = screenHeight - top - 42 +  'px'
 					vm.viewMinHeight = hei
 				},
 			})
@@ -119,6 +111,28 @@
 	@import "../../static/theme/extra/message.less";
 	scroll-view {
 		width: 750upx;
+	}
+	.search {
+		padding: 12upx 24upx;
+		display: flex;
+		&-box {
+			flex: 1;
+			@{bdra}: 30upx;
+			@{bgc}: #f2f2f2;
+			display: flex;
+			@{ai}: center;
+			height: 60upx;
+		}
+		input {
+			flex: 1;
+			@{fs}: 24upx;
+		}
+		.iconfont {
+			width: 66upx;
+			display: flex;
+			@{ai}: center;
+			@{jc}: center;
+		}
 	}
 	.ul {
 		width: 750upx;

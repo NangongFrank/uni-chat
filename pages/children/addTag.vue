@@ -12,16 +12,17 @@
 						<input @blur="addTag" v-model="tagVal" placeholder="添加标签">
 					</view>
 				</view>
-				<view class="res-tags">
+				<view class="res-tags" @tap="selectTag">
 					<view class="res-tags-li"
 					v-for="(value, index) in resTags"
-					@tap="selectTag(value)"
 					:key="index"
+					:data-tag="value.value"
 					v-text="value.value"></view>
 				</view>
 				<view class="tip">
 					<view>第一个标签将作为自己的随机搜索标志</view>
 				</view>
+				<view class="space-pool"></view>
 				<view class="btn">
 					<view @tap="savaTags">保存</view>
 				</view>
@@ -35,19 +36,77 @@
 			return {
 				tags:[],
 				resTags: [{
-					value: '90后'
+					value: '篮球'
 					}, {
-					value: '美术'
+					value: '羽毛球'
 					}, {
-					value: '运动'
+					value: '乒乓球'
+					}, {
+					value: '足球'
+					}, {
+					value: '滑板'
+					}, {
+					value: '滑旱冰'
+					}, {
+					value: '跑步'
+					}, {
+					value: '跳绳'
+					}, {
+					value: '举重'
+					}, {
+					value: '音乐'
 					}, {
 					value: '电影'
 					}, {
-					value: '电影'
+					value: '绘画'
 					}, {
-					value: '电影'
+					value: '小说'
 					}, {
-					value: '电影'
+					value: '看书'
+					}, {
+					value: '吉他'
+					}, {
+					value: '钢琴'
+					}, {
+					value: '萨克斯'
+					}, {
+					value: '葫芦丝'
+					}, {
+					value: '小提琴'
+					}, {
+					value: '折纸'
+					}, {
+					value: '剪纸'
+					}, {
+					value: '品茶'
+					}, {
+					value: '涂鸦'
+					}, {
+					value: '夜猫子'
+					}, {
+					value: '只爱美剧'
+					}, {
+					value: '做一个开心的吃货'
+					}, {
+					value: '幽默'
+					}, {
+					value: '帽子控'
+					}, {
+					value: '二次元'
+					}, {
+					value: '型男'
+					}, {
+					value: '静水流深'
+					}, {
+					value: '萌萌哒'
+					}, {
+					value: '风趣'
+					}, {
+					value: '单身待解救'
+					}, {
+					value: '狮子座'
+					}, {
+					value: '宅女'
 				}],
 				tagVal: "",
 			}
@@ -73,19 +132,22 @@
 				}
 				vm.tagVal = ""
 			},
-			selectTag({value}) {
-				let vm = this,
+			selectTag({target}) {
+				let dataset = target.dataset.tag,
+					vm = this,
 					oldList = vm.tags,
 					isUnique = false
-				isUnique = oldList.every(item => {
-					if(item.value == value) {
-						return false
-					} else {
-						return true
+				if(dataset) {
+					isUnique = oldList.every(item => {
+						if(item.value == dataset) {
+							return false
+						} else {
+							return true
+						}
+					})
+					if(isUnique) {
+						vm.tags.push({value: dataset})
 					}
-				})
-				if(isUnique) {
-					vm.tags.push({value})
 				}
 			},
 			removeTag(index) {
@@ -136,8 +198,11 @@
 				@{fs}: 28upx;
 				padding: 8upx 16upx;
 				@{bdra}: 18upx;
-				@{bgc}: #8e52b1;
+				@{bgc}:  #4529a2;
 				color: #fff;
+				&:active {
+					opacity: .8;
+				}
 			}
 			input {
 				@{fs}: 24upx;
@@ -149,16 +214,28 @@
 		}
 	}
 	.btn {
-		display: flex;
-		@{jc}: center;
-		margin-top: 50upx;
+		width: 710upx;
+		position: fixed;
+		bottom: 0;
+		left: 20upx;
+		margin: 12upx 0;
 		view {
-			padding: 14upx 32upx;
-			@{bdra}: 20upx;
-			@{bgc}: #8e52b1;
+			flex: 1;
+			height: 70upx;
+			@{bdra}: 35upx;
+			@{bgc}: #4529a2;
 			color: #fff;
-			@{fs}: 30upx;
+			@{fs}: 24upx;
+			display: flex;
+			@{ai}: center;
+			@{jc}: center;
+			&:active {
+				opacity: .8;
+			}
 		}
+	}
+	.space-pool {
+		padding: 50upx 0;
 	}
 	.tip {
 		margin: 40upx 0;

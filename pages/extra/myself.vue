@@ -39,7 +39,10 @@
 				</view>
 				<!-- <view class="box-footer">这家伙很懒，什么都没有留下</view> -->
 				<view class="box-tags">
-					<view class="box-tags-tt">我的标签:</view>
+					<view class="box-tags-tt">
+						<view class="iconfont icon-my-tag"></view>
+						<view>我的标签</view>
+					</view>
 					<view class="box-tags-ct">
 						<view class="item"
 						v-for="(value, index) in tags"
@@ -50,7 +53,7 @@
 				</view>
 			</view>
 			<view class="extra">
-				<!-- <view class="extra-vip">
+				<view class="extra-vip">
 					<view class="extra-vip-info">
 						<view class="iconfont icon-vip"></view>
 						<view class="vip-tip">开通VIP</view>
@@ -59,7 +62,7 @@
 					<navigator url="#" class="extra-vip-tip">
 						查看VIP的尊贵的特权
 					</navigator>
-				</view> -->
+				</view>
 				<!-- <view class="extra-barrage">
 					<view class="extra-barrage-title">
 						<view class="iconfont icon-mail"></view>
@@ -89,12 +92,22 @@
 						</view>
 					</view>
 				</view> -->
-				<!-- <view class="extra-adjust">
+				<view class="extra-my">
+					<view class="extra-my-box" @tap="jumpMyDiscuss">
+						<image src="/static/assets/myself/my-discuss.png"></image>
+						<view>我的关注</view>
+					</view>
+					<view class="extra-my-box" @tap="jumpMyAction">
+						<image src="/static/assets/myself/my-action.png"></image>
+						<view>我的动态</view>
+					</view>
+				</view>
+				<view class="extra-adjust">
 					<navigator url="#" class="extra-adjust-title">
 						<view class="iconfont icon-pen"></view>
 						<view class="adjust">意见反馈</view>
 					</navigator> 
-				</view>-->
+				</view>
 			</view>
 		</scroll-view>
 	</view>
@@ -158,7 +171,21 @@
 					duration: 800,
 					icon: 'none',
 				})
-			}
+			},
+			jumpMyAction() {
+				uni.showToast({
+					title: '暂未开通',
+					duration: 900,
+					icon: 'none',
+				})
+			},
+			jumpMyDiscuss() {
+				uni.showToast({
+					title: '暂未开通',
+					duration: 900,
+					icon: 'none',
+				})
+			},
 		},
 		onReady() {
 			let vm = this
@@ -194,6 +221,32 @@
 		display: flex;
 		@{ai}:center;
 		@{fd}: column;
+		&-my {
+			width: 710upx;
+			@{bgc}: @extra-my-bg;
+			@{bdra}: 30upx;
+			margin-bottom: 18upx;
+			image {
+				width: 65upx;
+				height: 65upx;
+			}
+			color: #8e81c0;
+			@{fs}: 24upx;
+			display: flex;
+			&-box {
+				display: flex;
+				@{fd}: column;
+				@{ai}: center;
+				padding: 40upx 12upx;
+				margin: 0 20upx;
+				view {
+					margin-top: 20upx;
+				}
+				&:active {
+					opacity: .8;
+				}
+			}
+		}
 		&-adjust {
 			width: 710upx;
 			min-height: 110upx;
@@ -301,7 +354,7 @@
 			}
 		}
 		&-vip {
-			margin: 38upx 0;
+			margin: 20upx 0;
 			width: 690upx;
 			height: 68upx;
 			@{bdra}: 30upx;
@@ -336,19 +389,29 @@
 			@{fs}: 28upx;
 			color: #fff;
 			display: flex;
-			@{ai}: baseline;
+			@{fd}: column;
 			&-tt {
-				width: 180upx;
+				display: flex;
+				@{ai}: center;
+				@{fs}: 24upx;
+				.iconfont {
+					@{fs}: 34upx; 
+					margin-right: 14upx;
+				} 
+				padding: 14upx 0;
 			}
 			&-ct {
 				display: flex;
 				@{fw}: wrap;
 				.item {
-					margin: 0 0 20upx 20upx;
+					margin: 8upx 6upx;
+					padding: 6upx 18upx;
+					@{bdra}: 24upx;
+					border: 2upx solid #2a1378;
 				}
 			}
 			navigator {
-				margin-left: 30upx;
+				margin: 16upx 0 0 30upx;
 			}
 		}
 		&-footer {

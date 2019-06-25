@@ -1,0 +1,42 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" >
+
+<svg>
+<metadata>
+Created by webfont
+</metadata>
+<defs>
+
+<font id="xiaowei" horiz-adv-x="588" vert-adv-y="588" >
+  <font-face
+    
+    font-family="xiaowei"
+    
+    font-weight="400"
+    
+    font-stretch="normal"
+    
+    units-per-em="512"
+    
+    ascent="449"
+    
+    descent="-96"
+    
+  />
+    <missing-glyph />
+    
+    <glyph glyph-name="uni47" unicode="&#x47;" d="M187 0Q247 0 286 43Q325 86 328 152L328 152L329 155Q329 176 309 177L150 177L150 177L150 177L149 177Q129 176 129 155Q129 133 150 133L150 133L285 133Q267 46 187 46Q140 46 107 84Q74 121 74 174Q74 226 107 263Q141 301 188 301Q243 301 277 245Q283 233 296 233Q317 233 317 256L315 266L315 267L311 273Q265 347 188 347Q123 347 78 296Q32 245 32 174Q32 101 77 51Q122 0 187 0Z"  horiz-adv-x="359" vert-adv-y="512"  />
+
+    
+    <glyph glyph-name="uni49" unicode="&#x49;" d="M132 300Q154 300 154 323Q154 344 132 345L61 345Q39 344 39 323Q39 300 62 300L74 300L74 44L61 44Q39 43 39 21Q39-1 62-1L132-1Q154-1 154 21Q154 43 132 44L119 44L119 300L132 300Z"  horiz-adv-x="190" vert-adv-y="512"  />
+
+    
+    <glyph glyph-name="uni4b" unicode="&#x4b;" d="M243 339Q224 354 210 336L96 195Q90 186 92 175Q93 167 97 162L210 21Q225 3 243 18Q261 32 246 51L143 179L246 307Q261 325 243 339M64-1Q86-1 86 21L86 325Q86 346 64 346Q41 346 41 324L41 22Q41-1 64-1Z"  horiz-adv-x="282" vert-adv-y="512"  />
+
+    
+    <glyph glyph-name="uni4e" unicode="&#x4e;" d="M301 342Q279 342 279 320L279 131Q279 109 301 109Q323 109 323 131L323 320Q323 342 301 342M75 332Q62 350 45 337L42 335Q35 329 35 319L35 30Q35 8 57 8Q79 8 79 30L79 257L277 10Q290-8 308 5Q326 18 313 36L75 332Z"  horiz-adv-x="356" vert-adv-y="512"  />
+
+    
+
+  </font>
+</defs></svg>

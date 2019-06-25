@@ -32,12 +32,12 @@
 		@{jc}: space-between;
 		@{bdra}: 0 10upx 10upx 0;
 	}
-	.iconfont,
 	.text {
 		@{fs}: 20upx;
 	}
 	.iconfont {
 		color: @icon-color;
+		@{fs}: 32upx;
 	}
 	.text {
 		color: #fff;

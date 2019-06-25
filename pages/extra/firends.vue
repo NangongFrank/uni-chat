@@ -1,21 +1,16 @@
 <template>
-	<view class="wrapper" :style="{height: pageMinHeight}">
-		<!-- <view class="header">
-			<nav-header />
-		</view> -->
-		<view class="nav" @tap="seachBoxEvent">
+	<view class="wrapper">
+		<view class="nav">
+			<view class="nav-tip">当前68位好友</view>
 			<view class="nav-wrapper">
 				<input 
 				confirm-type="search"
 				v-model="searchValue"
 				placeholder="输入名称或ID"
-				data-act="input"
-				@confirm="seachEvent"
-				v-if="isSearch">
+				@confirm="seachEvent">
 				<view class="iconfont icon-search" data-act="search"></view>
 			</view>
 		</view>
-		<view style="height: 46px;"></view>
 		<scroll-view scroll-y :style="{height: viewMinHeight}">
 			<view class="ul">
 				<view class="li"
@@ -43,7 +38,6 @@
 	</view>
 </template>
 <script>
-	//import navHeader from '@/components/navHeader'
 	export default {
 		data() {
 			return {
@@ -139,32 +133,10 @@
 					cover: '/static/assets/myfirends/firend-10.png',
 				}],
 				viewMinHeight: 0,
-				pageMinHeight: 0,
-				isSearch: false,
 				searchValue: '',
 			}
 		},
-		components: {
-			//navHeader,
-		},
 		methods: {
-			seachBoxEvent({target}) {
-				let vm = this,
-					dataset = target.dataset,
-					act = dataset.act
-				if(act == 'search') {
-					if(!vm.isSearch) {
-						vm.isSearch = true
-					} else if(!vm.searchValue) {
-						vm.isSearch = false
-					} else {
-						// 进行搜索事件
-						console.log('search event')
-					}
-				} else if(act != 'input') {
-					vm.isSearch = false
-				}
-			},
 			seachEvent() {
 				let vm = this,
 					text = vm.searchValue
@@ -182,13 +154,8 @@
 				success({pixelRatio, screenHeight}) {
 					// top 即header占据的空间高度(绝对值)
 					const top = 64
-					let	hei = 0,
-						height = 0
-					// #ifdef MP-WEIXIN
-					height = screenHeight - top + 'px'
-					hei = screenHeight - top - 46 + 'px'
-					// #endif
-					vm.pageMinHeight = height
+					let	hei = 0
+					hei = screenHeight - top - 50.25 + 'px'
 					vm.viewMinHeight = hei
 				},
 			})
@@ -217,7 +184,7 @@
 			}
 			display: flex;
 			color: #fff;
-			margin: 20upx 0;
+			margin: 0 0 20upx;
 			@{bgi}: radial-gradient(circle at center, @radial-start, @radial-end 100upx);
 		}
 		.user-info {
@@ -272,19 +239,17 @@
 	.nav {
 		display: flex;
 		@{ai}: center;
-		@{jc}: flex-end;
-		position: fixed;
-		top: 0;
-		left: 0;
-		z-index: 100;
-		height: 92upx;
-		width: 750upx;
+		@{jc}: space-between;
+		padding: 24upx 20upx;
+		&-tip {
+			@{fs}: 24upx;
+			color: #666;
+		}
 		&-wrapper {
 			display: flex;
 			@{ai}: center;
 			@{bdra}: 12upx;
 			@{bgc}: #535353;
-			margin-right: 20upx;
 			padding: 0 12upx;
 			input {
 				flex:1;
@@ -298,7 +263,6 @@
 				@{jc}: center;
 			}
 			color: #fff;
-			
 		}
 	}
 </style>

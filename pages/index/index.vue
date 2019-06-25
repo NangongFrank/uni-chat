@@ -18,7 +18,7 @@
 <script>
 	import tabNav from '@/components/tabNav'
 	import navHeader from '@/components/navHeader'
-	import chatSendBox from '@/components/chatSendBox'
+	import chatSendBox from '@/components/sendBox'
 	import chatRoom from '@/components/chatRoom'
 	import customerService from '@/components/customerService'
 	export default {
