@@ -41,13 +41,13 @@
 					sex: 'male',
 					msg: '有没有小姐姐？？本人想交个朋友。',
 					cover: '/static/assets/chatroom/user-head.png',
-					isFirend: true,					
+					isFriend: true,					
 					}, {
 					name: 'Linda',
 					sex: 'female',
 					msg: '在的，哈哈哈哈，你多大？',
 					cover: '/static/assets/chatroom/user-head.png',
-					isFirend: true,
+					isFriend: true,
 					}, {
 					name: '文文',
 					sex: 'female',
@@ -87,8 +87,8 @@
 			tapUser() {
 				
 			},
-			jumpToChat({name, isFirend, isMe}) {
-				if(isFirend) {
+			jumpToChat({name, isFriend, isMe}) {
+				if(isFriend) {
 					uni.navigateTo({
 						url: '/pages/children/chatFirend?name=' + name,
 					})
@@ -110,15 +110,21 @@
 					})
 				}
 			},
-			seeUser({isFirend}) {
-				if(isFirend) {
-					isFirend = 1
+			seeUser({isFriend, isMe}) {
+				if(isFriend) {
+					isFriend = 1
 				} else {
-					isFirend = 0
+					isFriend = 0
 				}
-				uni.navigateTo({
-					url: '/pages/children/userHome?isFirend=' + isFirend
-				})
+				if(isMe) {
+					uni.navigateTo({
+						url: '/pages/extra/myself'
+					})
+				} else {
+					uni.navigateTo({
+						url: '/pages/children/userHome?isFriend=' + isFriend
+					})
+				}
 			},
 		},
 		onReady() {

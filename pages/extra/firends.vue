@@ -1,5 +1,5 @@
 <template>
-	<view class="wrapper">
+	<view class="wrapper" :style="{height: pageHeight}">
 		<view class="nav">
 			<view class="nav-tip">当前68位好友</view>
 			<view class="nav-wrapper">
@@ -11,12 +11,12 @@
 				<view class="iconfont icon-search" data-act="search"></view>
 			</view>
 		</view>
-		<scroll-view scroll-y :style="{height: viewMinHeight}">
+		<scroll-view scroll-y :style="{height: viewHeight}">
 			<view class="ul">
 				<view class="li"
 				v-for="(value, index) in firendList"
 				:key="index">
-					<view class="cover">
+					<view class="cover" @tap="userInfo(value)">
 						<image :src="value.cover"></image>
 					</view>
 					<view class="user-info" @tap="jumpToChat(value)">
@@ -77,6 +77,41 @@
 					tip: ['90后', '音乐', '美食'],
 					cover: '/static/assets/myfirends/firend-07.png',
 					}, {
+					name: 'Fionalin',
+					sex: 'male',
+					tip: ['90后', '音乐', '美食'],
+					cover: '/static/assets/myfirends/firend-07.png',
+					}, {
+					name: 'Fionalin',
+					sex: 'male',
+					tip: ['90后', '音乐', '美食'],
+					cover: '/static/assets/myfirends/firend-07.png',
+					}, {
+					name: 'Fionalin',
+					sex: 'male',
+					tip: ['90后', '音乐', '美食'],
+					cover: '/static/assets/myfirends/firend-07.png',
+					}, {
+					name: 'Fionalin',
+					sex: 'male',
+					tip: ['90后', '音乐', '美食'],
+					cover: '/static/assets/myfirends/firend-07.png',
+					}, {
+					name: 'Fionalin',
+					sex: 'male',
+					tip: ['90后', '音乐', '美食'],
+					cover: '/static/assets/myfirends/firend-07.png',
+					}, {
+					name: 'Fionalin',
+					sex: 'male',
+					tip: ['90后', '音乐', '美食'],
+					cover: '/static/assets/myfirends/firend-07.png',
+					}, {
+					name: 'Fionalin',
+					sex: 'male',
+					tip: ['90后', '音乐', '美食'],
+					cover: '/static/assets/myfirends/firend-07.png',
+					}, {
 					name: '刘露丝',
 					sex: 'female',
 					tip: ['90后', '音乐', '美食'],
@@ -101,38 +136,9 @@
 					sex: 'male',
 					tip: ['90后', '音乐', '美食'],
 					cover: '/static/assets/myfirends/firend-10.png',
-					}, {
-					name: 'Jone',
-					sex: 'male',
-					tip: ['90后', '音乐', '美食'],
-					cover: '/static/assets/myfirends/firend-10.png',
-					}, {
-					name: 'Jone',
-					sex: 'male',
-					tip: ['90后', '音乐', '美食'],
-					cover: '/static/assets/myfirends/firend-10.png',
-					}, {
-					name: 'Jone',
-					sex: 'male',
-					tip: ['90后', '音乐', '美食'],
-					cover: '/static/assets/myfirends/firend-10.png',
-					}, {
-					name: 'Jone',
-					sex: 'male',
-					tip: ['90后', '音乐', '美食'],
-					cover: '/static/assets/myfirends/firend-10.png',
-					}, {
-					name: 'Jone',
-					sex: 'male',
-					tip: ['90后', '音乐', '美食'],
-					cover: '/static/assets/myfirends/firend-10.png',
-					}, {
-					name: 'Jone',
-					sex: 'male',
-					tip: ['90后', '音乐', '美食'],
-					cover: '/static/assets/myfirends/firend-10.png',
 				}],
-				viewMinHeight: 0,
+				viewHeight: '553px',
+				pageHeight: '603px',
 				searchValue: '',
 			}
 		},
@@ -147,16 +153,20 @@
 					url: '/pages/children/chatFirend?name=' + name,
 				})
 			},
+			userInfo(value) {
+				uni.navigateTo({
+					url: '/pages/children/userHome?isFriend=' + 1
+				})
+			},
 		},
 		onReady() {
 			let vm = this
 			uni.getSystemInfo({
-				success({pixelRatio, screenHeight}) {
+				success({screenHeight, windowHeight}) {
 					// top 即header占据的空间高度(绝对值)
-					const top = 64
-					let	hei = 0
-					hei = screenHeight - top - 50.25 + 'px'
-					vm.viewMinHeight = hei
+					vm.viewHeight = windowHeight - 50 + 'px'
+					vm.pageHeight = windowHeight + 'px'
+					
 				},
 			})
 		},

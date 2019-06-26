@@ -164,19 +164,10 @@
 		onReady() {
 			let vm = this
 			uni.getSystemInfo({
-				success({pixelRatio, screenHeight}) {
+				success({screenHeight, windowHeight}) {
 					// top 即header占据的空间高度(绝对值)
-					const top = 68
-					let height = 0,
-						hei = 0
-					// #ifdef MP-WEIXIN
-					height = screenHeight
-					hei = screenHeight - top - 64
-					height += 'px'
-					hei += 'px'
-					// #endif
-					vm.pageMinHeight = height
-					vm.viewMinHeight = hei
+					vm.pageMinHeight = windowHeight + 'px'
+					vm.viewMinHeight = windowHeight - 64 + 'px'
 				},
 			})
 		},

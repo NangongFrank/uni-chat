@@ -11,7 +11,7 @@
 				<view class="li"
 				v-for="(value, index) in msgList"
 				:key="index">
-					<view class="cover">
+					<view class="cover" @tap="seeUser(value)">
 						<image :src="value.cover"></image>
 					</view>
 					<view class="tip" @tap="jumpToChat(value)">
@@ -40,6 +40,7 @@
 					name: '考研',
 					msg: '为了成为更好的自己，一起加油吧~！',
 					time: '6-12',
+					isFriend: true,
 					},{
 					cover: '/static/assets/message/user-head.png',
 					name: '考研',
@@ -103,6 +104,16 @@
 					url: '/pages/children/chatFirend?name=' + name,
 				})
 			},
+			seeUser({isFriend}) {
+				if(isFriend) {
+					isFriend = 1
+				} else {
+					isFriend = 0
+				}
+				uni.navigateTo({
+					url: '/pages/children/userHome?isFriend=' + isFriend
+				})
+			}
 		}
 	}
 </script>
@@ -142,16 +153,15 @@
 	}
 	.li {
 		display: flex;
-		width: 730upx;
-		margin-bottom: 20upx;
-		padding: 8upx 20upx;
-		box-shadow: 0 2upx 16upx #ededed;
+		width: 710upx;
+		padding: 20upx 0;
+		border-bottom: 2upx solid #ccc;
 		@{bgc}: #fff;
 		.cover,
 		image {
 			width: 138upx;
 			height: 138upx;
-			@{bdra}: 12upx;
+			@{bdra}: 50%;
 		}
 		.cover {
 			margin-right: 20upx;

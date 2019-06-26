@@ -21,7 +21,7 @@
 		{
 			"path":"pages/extra/firends",
 			"style": {
-				"navigationBarTitleText":"好友列表"
+				"navigationBarTitleText":"好友"
 			}
 		},
 		{
@@ -33,7 +33,7 @@
 		{
 			"path": "pages/extra/message",
 			"style": {
-				"navigationBarTitleText":"我的信息"
+				"navigationBarTitleText":"消息"
 			}
 		},
 		{
@@ -44,13 +44,13 @@
 		},{
 			"path": "pages/children/addTag",
 			"style": {
-				"navigationBarTitleText":"标签操作"
+				"navigationBarTitleText":"添加标签"
 			}
 		},
 		{
 			"path": "pages/children/chatFirend",
 			"style": {
-				"navigationBarTitleText":"我的好友"
+				"navigationBarTitleText":"好友"
 			}
 		},{
 			"path": "pages/children/userHome",
@@ -67,6 +67,11 @@
 			"path": "pages/extra/findTaing",
 			"style": {
 				"navigationBarTitleText":"寻Ta..."
+			}
+		},{
+			"path": "pages/extra/foundTa",
+			"style": {
+				"navigationBarTitleText":"寻Ta成功"
 			}
 		}
 	],
@@ -104,6 +109,9 @@
 		}, {
 			"path": "pages/extra/findTaing",
 			"name":"寻TA..."
+		}, {
+			"path": "pages/extra/foundTa",
+			"name":"寻TA成功"
 		}, {
 			"path": "pages/children/userHome",
 			"name":"个人主页"

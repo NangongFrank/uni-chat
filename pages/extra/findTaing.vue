@@ -21,7 +21,7 @@
 			let vm = this
 			setTimeout(() => {
 				uni.navigateTo({
-					url: '/pages/children/userHome?isFirend=' + 0 + '&delta=2'
+					url: '/pages/extra/foundTa',
 				})
 			}, 2000)
 		},

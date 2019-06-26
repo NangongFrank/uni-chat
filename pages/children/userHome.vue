@@ -1,120 +1,101 @@
 <template>
 	<view class="wrapper" :style="{'min-height': pageMinHeight}">
-		<!-- <view class="header">
-			<nav-header 
-			:center-status="false" 
-			:right-status="false" 
-			:left-model="'textBackStep'"
-			:back-step-path="'/pages/index/index'"
-			:action-name="'返回'"/>
-		</view> -->
 		<scroll-view scroll-y :style="{'height': viewMinHeight}">
 			<view class="box">
-				<view class="box-nav">
-					<!-- <view class="box-nav-action">
-						<view>匿名模式</view>
-						<switch checked @change="navModelChange" />
-					</view>
-					<view class="box-nav-wast" @tap="wastMoney">
-						<view>充值</view>
-						<view class="iconfont icon-delta-right"></view>
-					</view> -->
-				</view>
 				<view class="box-aside">
 					<view class="box-aside-cover">
 						<view class="cover">
 							<image src="/static/assets/myself/user-head.png"></image>
 						</view>
-						<!-- <view class="cash">余额88</view> -->
 					</view>
 					<view class="box-aside-info">
 						<view class="name">
 							<view class="user-name">ALEX</view>
-							<!-- <navigator url="#" class="iconfont icon-edit-pen"></navigator> -->
 							<view class="sex iconfont"
 							:class="['icon-' + 'female', 'bg-' + 'female']"></view>
 						</view>
-						<!-- <view class="tip">信书1级</view> -->
 					</view>
 				</view>
-				<!-- <view class="box-footer">这家伙很懒，什么都没有留下</view> -->
 				<view class="box-tags">
-					<view class="box-tags-tt">我的标签:</view>
+					<view class="box-tags-tt">
+						<view class="iconfont icon-my-tag"></view>
+						<view>Ta的标签</view>
+					</view>
 					<view class="box-tags-ct">
 						<view class="item"
 						v-for="(value, index) in tags"
 						:key="index"
 						v-text="value.value"></view>
-					</view>
+ 					</view>
 				</view>
 			</view>
 			<view class="extra">
-				<view class="extra-vip">
-					<view class="extra-vip-info">
-						<view class="iconfont icon-vip"></view>
-						<view class="vip-tip">开通VIP</view>
-					</view>
-					<view class="iconfont icon-column-line" style="color: #fff;"></view>
-					<navigator url="#" class="extra-vip-tip">
-						查看VIP的尊贵的特权
-					</navigator>
-				</view>
-				<!-- <view class="extra-barrage">
-					<view class="extra-barrage-title">
-						<view class="iconfont icon-mail"></view>
-						<view class="barrage">弹幕信息</view>
-					</view>
-					<view class="extra-barrage-wrapper">
-						<view class="li"
-						v-for="(value, index) in barrageList"
+				<view class="extra-active">
+					<view class="m-left"></view>
+					<view class="m-right">
+						<view class="m-text-box"
+						v-for="(value, index) in userActive"
 						:key="index">
-							<view v-text="value.msg"></view>
-						</view>
-					</view>
-				</view> -->
-				<!-- <view class="extra-screen">
-					<view class="extra-screen-title">
-						<view class="iconfont icon-small-bell"></view>
-						<view class="screen">霸屏信息</view>
-					</view>
-					<view class="extra-screen-content">
-						<view class="li"
-						v-for="(value, index) in screenList"
-						:key="index">
-							<view class="msg" v-text="value.msg"></view>
-							<view class="cover">
-								<image :src="value.cover"></image>
+							<view class="tip-info">
+								<view class="time" v-text="value.time"></view>
+								<view class="weather" v-text="value.weather"></view>
+							</view>
+							<view class="tip-ct">
+								<view class="li" v-for="(val, ind) in value.text"
+								:key="ind"
+								v-text="val"></view>
+							</view>
+							<view class="tip-media" v-if="value.imgs.length">
+								<image v-for="(val, ind) in value.imgs"
+								:key="ind"
+								:src="val"></image>
+								<!-- 图片不足3张处理方法 添加空元素 -->
+								<view v-if="value.imgs.length % 3 == 2"></view>
 							</view>
 						</view>
 					</view>
-				</view> -->
-				<view class="extra-adjust">
-					<navigator url="#" class="extra-adjust-title">
-						<view class="iconfont icon-pen"></view>
-						<view class="adjust">意见反馈</view>
-					</navigator> 
-				</view>
-			</view>
-			<view class="user-action">
-				<view class="myfirend" v-if="isFirend">
-					<view @tap="chatUser">发送消息</view>
-				</view>
-				<view class="stranger" v-else>
-					<view class="iconfont icon-adduser" @tap="addUser">添加</view>
-					<view class="iconfont icon-message" @tap="chatUserLittle">私聊</view>
 				</view>
 			</view>
 		</scroll-view>
+		<view class="user-action">
+			<view class="myfirend" v-if="isFriend">
+				<view @tap="chatUser">发送消息</view>
+			</view>
+			<view class="stranger" v-else>
+				<view class="iconfont icon-adduser" @tap="addUser">关注</view>
+				<view class="iconfont icon-message" @tap="chatUserLittle">私聊</view>
+			</view>
+		</view>
 	</view>
 </template>
 <script>
-	// import navHeader from '@/components/navHeader'
 	export default {
 		data() {
 			return {
 				viewMinHeight: 0,
 				pageMinHeight: 0,
-				isFirend: false,
+				isFriend: false,
+				userActive: [{
+					time: '2019-06-18 12:38:42',
+					weather: '晴',
+					text: ['想吃鱼~', '酸菜鱼~', '水煮鱼~', '剁椒鱼头~'],
+					imgs: [],
+					}, {
+					time: '2019-06-17 12:38:42',
+					weather: '晴',
+					text: ['希望自己真的可以过得很好...'],
+					imgs: ['/static/assets/findta/runner.jpg', '/static/assets/findta/bird.jpg', '/static/assets/findta/screen.jpg'],
+					}, {
+					time: '2019-06-16 12:38:42',
+					weather: '多云',
+					text: ['人可以有傲骨，但不可以有傲气'],
+					imgs: ['/static/assets/findta/runner.jpg', '/static/assets/findta/screen.jpg'],
+					}, {
+					time: '2019-06-15 12:38:42',
+					weather: '多云',
+					text: ['人生自古谁无死, 留取丹心照汗心...'],
+					imgs: ['/static/assets/findta/runner.jpg'],
+				}],
 				tags: [{
 					value: '90后'
 					}, {
@@ -130,36 +111,11 @@
 					}, {
 					value: '电影'
 				}],
-				barrageList: [{
-					msg: '床前明月光',
-					}, {
-					msg: '地下鞋两双....',
-					}, {
-					msg: '黑云压城城欲摧',
-					}, {
-					msg: '甲光向日金鳞开。。。',
-				}],
-				screenList: [{
-					msg: '霸屏30秒',
-					cover: '/static/assets/myself/screen.png',
-					},{
-					msg: '霸屏30秒',
-					cover: '/static/assets/myself/screen.png',
-					},{
-					msg: '霸屏30秒',
-					cover: '/static/assets/myself/screen.png',
-					},{
-					msg: '霸屏30秒',
-					cover: '/static/assets/myself/screen.png',
-				}],
 			}
 		},
-		components: {
-			//navHeader,
-		},
-		onLoad({isFirend, delta}) {
-			this.isFirend = isFirend
-			console.log(delta)
+		onLoad({isFriend, delta}) {
+			this.isFriend = isFriend
+			console.log(arguments)
 		},
 		methods: {
 			navModelChange({detail}) {
@@ -203,24 +159,14 @@
 					url: '/pages/children/chatFirend?name=' + 'stranger'
 				})
 			},
-			
 		},
 		onReady() {
 			let vm = this
 			uni.getSystemInfo({
-				success({pixelRatio, screenHeight}) {
+				success({windowHeight}) {
 					// top 即header占据的空间高度(绝对值)
-					const top = 64
-					let height = 0,
-						hei = 0
-					// #ifdef MP-WEIXIN
-					height = screenHeight
-					hei = screenHeight - top
-					height += 'px'
-					hei += 'px'
-					// #endif
-					vm.pageMinHeight = height
-					vm.viewMinHeight = hei
+					vm.poolHeight = windowHeight + 'px'
+					vm.viewMinHeight = windowHeight - 50 + 'px';
 				},
 			})
 		},
@@ -236,16 +182,19 @@
 		@{bgc}: @wrapper-bg;
 	}
 	.user-action {
-		position: absolute;
-		bottom: 98upx;
+		position: fixed;
+		bottom: 0;
 		left: 0;
 		width: 750upx;
-		padding: 20upx 0;
+		height: 100upx;
+		@{bgc}: #000;
+		display: flex;
+		@{ai}: center;
 		.myfirend,
 		.stranger {
+			flex: 1;
 			display: flex;
 			height: 80upx;
-			padding: 0 70upx;
 			view {
 				display: flex;
 				@{ai}: center;
@@ -259,11 +208,11 @@
 				color: #fff;
 			}
 			.iconfont {
-				margin-right: 8upx;
+				margin-right: 10upx;
 			}
 		}
 		.stranger {
-			@{jc}: space-between;
+			@{jc}: space-around;
 			view {
 				width: 280upx;
 			}
@@ -276,137 +225,81 @@
 		}
 	}
 	.extra {
-		display: flex;
-		@{ai}:center;
-		@{fd}: column;
-		&-adjust {
-			width: 710upx;
-			min-height: 110upx;
-			@{bgc}: @extra-adjust-bg;
-			@{bdra}: 30upx;
-			&-title {
-				display: flex;
-				@{ai}: center;
-				padding: 50upx 50upx 30upx 50upx;
-				.iconfont {
-					@{bgc}: @extra-adjust-title-color;
-					width: 42upx;
-					height: 42upx;
-					@{fs}: 30upx;
-					line-height: 42upx;
-					text-align: center;
-					@{bdra}: 50%;
-					margin-right: 10upx;
-				}
-				.adjust {
-					color: @extra-adjust-title-color;
-					@{fs}: 28upx;
-				}
-			}
-		}
-		&-screen {
-			width: 710upx;
-			min-height: 380upx;
-			@{bgc}: @extra-screen-bg;
-			@{bdra}: 30upx;
-			margin: 48upx 0;
-			&-content {
-				image {
-					width: 140upx;
-					height: 140upx;
-					@{bdra}: 0 0 12upx 12upx;
-				}
-				display: flex;
-				@{jc}: space-around;
-				.li,
-				.msg {
-					@{bdra}: 12upx 12upx 0 0;
-				}
-				.msg {
-					@{fs}: 16upx;
-					@{bgc}: @extra-screen-msg-bg;
-					padding-left: 8upx;
-					display: flex;
-					@{ai}: center;
-				}
-			}
-			&-title {
-				display: flex;
-				@{ai}: center;
-				padding: 50upx 50upx 30upx 50upx;
-				.iconfont {
-					color: @extra-screen-title-color;
-					@{fs}: 46upx;
-					margin-right: 10upx;
-				}
-				.screen {
-					color: @extra-screen-title-color;
-					@{fs}: 28upx;
-				}
-			}
-		}
-		&-barrage {
-			width: 710upx;
-			min-height: 310upx;
-			@{bgc}: @extra-barrage-bg;
-			@{bdra}: 30upx;
-			&-wrapper {
-				padding: 0 50upx 30upx;
-				display: flex;
-				@{fw}: wrap;
-				.li {
-					margin: 10upx 16upx;
-					padding: 20upx 30upx;
-					@{fs}: 24upx;
-					@{bdra}: 38upx;
-					max-width: 280upx;
-					.word-online();
-					color: @extra-barrage-content-color;
-					@{bgc}: @extra-barrage-content-bg;
-				}
-			}
-			&-title {
-				display: flex;
-				@{ai}: center;
-				padding: 50upx 50upx 30upx 50upx;
-				.iconfont {
-					@{bgc}: @extra-barrage-title-color;
-					width: 42upx;
-					height: 42upx;
-					@{fs}: 30upx;
-					line-height: 42upx;
-					text-align: center;
-					@{bdra}: 50%;
-					margin-right: 10upx;
-				}
-				.barrage {
-					color: @extra-barrage-title-color;
-					@{fs}: 28upx;
-				}
-			}
-		}
-		&-vip {
-			margin: 38upx 0;
-			width: 690upx;
-			height: 68upx;
-			@{bdra}: 30upx;
-			@{bgc}: @extra-vip-bg;
+		padding: 0 20upx;
+		color: #eee;
+		&-active {
 			display: flex;
-			@{ai}: center;
-			@{jc}: space-around;
-			@{fs}: 32upx;
-			.vip-tip {
-				color: @extra-vip-tip-color;
-				margin-left: 10upx;
-			}
-			&-info,
-			&-tip {
+			margin-top: 20upx;
+			.m-left {
+				width: 38upx;
 				display: flex;
+				@{fd}: column;
 				@{ai}: center;
+				&::before {
+					content: "";
+					flex: 1;
+					width: 2upx;
+					@{bgc}: #a4a4a4;
+				}
 			}
-			.iconfont,
-			&-tip {
-				color: @extra-vip-simple-color;
+			.m-text-box {
+				flex: 1;
+				margin-bottom: 20upx;
+				@{bgc}: #13005a;
+				@{bdra}: 12upx;
+				padding: 20upx;
+			}
+			.tip-info {
+				position: relative;
+				display: flex;
+				@{ai}: baseline;
+				&::after,
+				&::before {
+					position: absolute;
+					top: 10upx;
+					content: "";
+					display: block;
+				}
+				&::before {
+					border: 12upx solid transparent;
+					border-right-color: #13005a;
+					left: -40upx;
+				}
+				&::after {
+					left: -49upx;
+					width: 20upx;
+					height: 20upx;
+					@{bdra}: 50%;
+					@{bgc}: #ffc72d;
+				}
+			}
+			.m-right {
+				@{bdra}: 12upx;
+				flex: 1;
+				.time {
+					@{fs}: 20upx;
+				}
+				.weather {
+					margin-left: 10upx;
+					@{fs}: 24upx;
+				}
+				.li {
+					@{fs}: 24upx;
+					margin-top: 14upx;
+				}
+				.tip-media {
+					margin-top: 14upx;
+					display: flex;
+					@{jc}: space-between;
+					view {
+						width: 200upx;
+						height: 200upx;
+					}
+				}
+				image {
+					width: 200upx;
+					height: 200upx;
+				}
 			}
 		}
 	}
@@ -421,27 +314,30 @@
 			@{fs}: 28upx;
 			color: #fff;
 			display: flex;
-			@{ai}: baseline;
+			@{fd}: column;
 			&-tt {
-				width: 180upx;
+				display: flex;
+				@{ai}: center;
+				@{fs}: 24upx;
+				.iconfont {
+					@{fs}: 34upx; 
+					margin-right: 14upx;
+				} 
+				padding: 14upx 0;
 			}
 			&-ct {
 				display: flex;
 				@{fw}: wrap;
 				.item {
-					margin: 0 0 20upx 20upx;
+					margin: 8upx 6upx;
+					padding: 6upx 18upx;
+					@{bdra}: 24upx;
+					border: 2upx solid #2a1378;
 				}
 			}
 			navigator {
-				margin-left: 30upx;
+				margin: 16upx 0 0 30upx;
 			}
-		}
-		&-footer {
-			display: flex;
-			@{ai}: center;
-			@{jc}: center;
-			padding: 40upx 0;
-			@{fs}: 24upx;
 		}
 		&-aside {
 			display: flex;
@@ -513,38 +409,6 @@
 			image,
 			.cover {
 				@{bdra}: 50%;
-			}
-		}
-		&-nav {
-			padding-left: 52upx;
-			display: flex;
-			@{jc}: space-between;
-			@{ai}: center;
-			&-action {
-				display: flex;
-				@{ai}: center;
-				view {
-					margin-right: 12upx;
-					@{fs}: 24upx;
-				}
-			}
-			&-wast {
-				display: flex;
-				@{ai}: center;
-				@{jc}: flex-end;
-				width: 92upx;
-				height: 36upx;
-				@{bgc}: @wast-bg;
-				@{bdra}: 18upx 0 0 18upx;
-				@{fs}: 22upx;
-				padding-right: 10upx;
-				.iconfont {
-					@{fs}: 20upx;
-				}
-				&,
-				.iconfont {
-					color: @wast-color;
-				}
 			}
 		}
 	}

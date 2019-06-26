@@ -183,7 +183,7 @@
 		}
 		.iconfont {
 			@{fs}: 32upx;
-			margin-right: 6upx;
+			margin-right: 12upx;
 		}
 		.cover,
 		.tip-icon {
