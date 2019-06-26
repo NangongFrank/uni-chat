@@ -14,7 +14,14 @@
 				</view>
 				<view class="res-tags" @tap="selectTag">
 					<view class="res-tags-li"
-					v-for="(value, index) in resTags"
+					v-for="(value, index) in resTags1"
+					:key="index"
+					:data-tag="value.value"
+					v-text="value.value"></view>
+				</view>
+				<view class="res-tags" @tap="selectTag">
+					<view class="res-tags-li"
+					v-for="(value, index) in resTags2"
 					:key="index"
 					:data-tag="value.value"
 					v-text="value.value"></view>
@@ -35,7 +42,7 @@
 		data() {
 			return {
 				tags:[],
-				resTags: [{
+				resTags1: [{
 					value: '篮球'
 					}, {
 					value: '羽毛球'
@@ -79,7 +86,8 @@
 					value: '剪纸'
 					}, {
 					value: '品茶'
-					}, {
+				}],
+				resTags2: [{
 					value: '涂鸦'
 					}, {
 					value: '夜猫子'
