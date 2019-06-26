@@ -20,12 +20,11 @@
 					:key="ind"
 					v-text="val"></view>
 				</view>
-				
 			</view>
 		</view>
 		
 		<view class="action">
-			<view class="action-btn" @tap="findStarting">寻找</view>
+			<view class="action-btn" @tap="findStarting">寻Ta</view>
 			<view class="action-tip">1234123在线</view>
 		</view>
 		<view class="preparation-box" v-show="preparationSheetStatus">
