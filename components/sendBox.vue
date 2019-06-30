@@ -1,29 +1,32 @@
 <template>
 	<view>
 		<view class="content">
-			<view class="micro">
+			<view class="micro"
+			@tap="startMicro">
 				<view class="iconfont icon-micro"></view>
 			</view>
 			<view class="input-area">
-				<textarea maxlength="36" value="" auto-height
+				<textarea maxlength="36" auto-height
 				v-model="inputValue" 
 				:show-confirm-bar="false"/>
 				<view @tap="send">发送</view>
 			</view>
 			<view class="action-area">
-				<view class="view iconfont icon-smell-face"></view>
-				<view class="view iconfont icon-add"></view>
+				<view class="view iconfont icon-smell-face" @tap="checkFace"></view>
+				<view class="view iconfont icon-add" @tap="sendImg"></view>
 			</view>
 		</view>
 	</view>
 	
 </template>
 <script>
+	import {wsHost} from '@/extends/host'
 	export default {
 		data() {
 			return {
 				inputValue: "",
 				isExtra: false,
+				isMicro: false,
 			}
 		},
 		methods: {
@@ -35,11 +38,51 @@
 			send() {
 				let vm = this,
 					msg = vm.inputValue
-				vm.$emit("resmsg", {msg})
-				setTimeout(() => {
-					vm.inputValue = ""
-					console.log(vm.inputValue)
-				}, 100)
+				if(msg) {
+					vm.$emit("resmsg", {msg})
+					setTimeout(() => {
+						vm.inputValue = ""
+						// console.log(vm.inputValue)
+					}, 100)
+				}
+				
+			},
+			startMicro() {
+				uni.showToast({
+					title: '语音功能开发中...',
+					icon: 'none',
+					duration: 1000,
+				})
+			},
+			checkFace() {
+				uni.showToast({
+					title: '表情功能开发中...',
+					icon: 'none',
+					duration: 1000,
+				})
+			},
+			sendImg() {
+				uni.chooseImage({
+					success(chooseImageRes) {
+						const tempFilePaths = chooseImageRes.tempFilePaths
+						let len = tempFilePaths.length,
+							i = 0
+						let uploadTask = uni.uploadFile({
+							url: 'https://www.example.com/upload', 
+							filePath: tempFilePaths[i],
+							name: 'file',
+							formData: {
+								'user': 'test'
+							},
+							success(uploadFileRes) {
+								console.log(uploadFileRes.data)
+							}
+						})
+						uploadTask.onProgressUpdate(({progress}) => {
+							// 监听上传进度
+						})
+					}
+				})
 			},
 			hideExtra({target}) {
 				let obj = target.dataset,
@@ -72,17 +115,6 @@
 						break
 					}
 				}
-			},
-			sendRequest() {
-				let vm = this
-				/* vm.$req('sendChatContent', {
-					userId: 0,
-					typeCode: 0,
-					content: '',
-					files: '',  // source
-				}, data => {
-					
-				}) */
 			},
 		}
 	}

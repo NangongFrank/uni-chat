@@ -21,12 +21,15 @@
 	import chatSendBox from '@/components/sendBox'
 	import chatRoom from '@/components/chatRoom'
 	import customerService from '@/components/customerService'
+	import {wsHost} from '@/extends/host'
 	export default {
 		data() {
 			return {
 				msg: "",
 				viewMinHeight: 0,
 				pageMinHeight: 0,
+				userData: {},
+				clientId: '',
 			}
 		},
 		components: {
@@ -42,28 +45,30 @@
 				vm.msg = msg
 			},
 		},
-		onLoad() {
-			
-		},
 		onReady() {
 			let vm = this
 			uni.getSystemInfo({
-				success({pixelRatio, screenHeight}) {
+				success({screenHeight, windowHeight}) {
 					// top 即header占据的空间高度(绝对值)
 					const top = 50
-					let height = 0,
-						hei = 0
-					// #ifdef MP-WEIXIN
-					height = screenHeight
-					hei = screenHeight - top - 64
-					height += 'px'
-					hei += 'px'
-					// #endif
-					vm.pageMinHeight = height
-					vm.viewMinHeight = hei
+					vm.pageMinHeight = screenHeight + 'px'
+					vm.viewMinHeight = windowHeight - top + 'px'
 				},
 			})
 		},
+		onLoad() {
+			
+		},
+		onShow() {
+			let vm = this
+			// 获取用户信息 打开websocket
+			uni.getStorage({
+				key: 'userData',
+			}).then(([err, {data}]) => {
+				this.userData = data
+				uni.connectSocket({url: wsHost})
+			})
+		}
 	}
 </script>
 <style lang="less" scoped>

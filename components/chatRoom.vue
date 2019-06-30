@@ -23,6 +23,7 @@
 	</view>
 </template>
 <script>
+	import {friendIsFriend} from '@/extends/host'
 	export default {
 		props: {
 			reqmsg: {
@@ -36,107 +37,107 @@
 		},
 		data() {
 			return {
-				userList: [{
-					name: '城市中的星星',
-					sex: 'male',
-					msg: '有没有小姐姐？？本人想交个朋友。',
-					cover: '/static/assets/chatroom/user-head.png',
-					isFriend: true,					
-					}, {
-					name: 'Linda',
-					sex: 'female',
-					msg: '在的，哈哈哈哈，你多大？',
-					cover: '/static/assets/chatroom/user-head.png',
-					isFriend: true,
-					}, {
-					name: '文文',
-					sex: 'female',
-					msg: '大家都在干嘛？',
-					cover: '/static/assets/chatroom/user-head.png',
-					}, {
-					name: '土耳其的约会',
-					sex: 'male',
-					msg: '我在打游戏呢！有一起开黑的请扣我。',
-					cover: '/static/assets/chatroom/user-head.png',
-					}, {
-					name: 'Eoll',
-					sex: 'male',
-					msg: '等下一起玩吧，我现在在门口，等一下。',
-					cover: '/static/assets/chatroom/user-head.png',
-					}, {
-					name: '太撒旦了',
-					sex: 'male',
-					msg: '爱上幅度萨芬',
-					cover: '/static/assets/chatroom/user-head.png',
-					},  {
-					name: '王若飞',
-					sex: 'male',
-					msg: '啊师傅挖方u我却认为。',
-					cover: '/static/assets/chatroom/user-head.png',
-					isMe: true,
-					}, {
-					name: 'Tell',
-					sex: 'male',
-					msg: '关于爱情，我们都腹黑。。。。。 ',
-					cover: '/static/assets/chatroom/user-head.png',
-				}],
+				userList: [],
 				lastMsgSide: 0,
+				userData: {
+					userInfo: {
+						avatarUrl: '/static/assets/user-head.png',
+					}
+				},
+				myClientId: '',
+				openid: '',
 			}
 		},
 		methods: {
 			tapUser() {
 				
 			},
-			jumpToChat({name, isFriend, isMe}) {
-				if(isFriend) {
-					uni.navigateTo({
-						url: '/pages/children/chatFirend?name=' + name,
-					})
-				} else if(!isMe){
-					/* uni.showToast({
-						title: '对方不是好友',
-						duration: 800,
-						icon: 'none',
-					}) */
-					// stranger chat
-					uni.navigateTo({
-						url: '/pages/children/chatFirend?name=' + name
-					})
-				} else {
-					uni.showToast({
-						title: '选中了自己',
-						duration: 800,
-						icon: 'none',
-					})
-				}
+			jumpToChat({openid, isMe, clientId, name}) {
+				// 请求服务器，用户是否是好友
+				let vm = this
+				uni.request({
+					method: 'post',
+					url: friendIsFriend,
+					data: {
+						findOpenId: vm.openid,
+						foundOpenId: openid,
+					}
+				}).then(([err, {data}]) => {
+					if(data.state) {
+						uni.navigateTo({
+							url: '/pages/children/chatFirend?name=' + name + '&tagClientId=' + clientId,
+						})
+					} else if(!isMe){
+						// stranger chat
+						uni.navigateTo({
+							url: '/pages/children/chatFirend?name=' + name + '&tagClientId=' + clientId,
+						})
+					} else {
+						uni.showToast({
+							title: '选中了自己',
+							duration: 800,
+							icon: 'none',
+						})
+					}
+				})
 			},
-			seeUser({isFriend, isMe}) {
-				if(isFriend) {
-					isFriend = 1
-				} else {
-					isFriend = 0
-				}
-				if(isMe) {
-					uni.navigateTo({
-						url: '/pages/extra/myself'
-					})
-				} else {
-					uni.navigateTo({
-						url: '/pages/children/userHome?isFriend=' + isFriend
-					})
-				}
+			seeUser({openid, isMe, clientId, name}) {
+				let vm = this
+				uni.request({
+					method: 'post',
+					url: friendIsFriend,
+					data: {
+						findOpenId: vm.openid,
+						foundOpenId: openid,
+					}
+				}).then(([err, {data}]) => {
+					if(isMe) {
+						uni.navigateTo({
+							url: '/pages/extra/myself'
+						})
+					} else {
+						uni.navigateTo({
+							url: '/pages/children/userHome?isFriend=' + data.state + '&clientId=' + clientId + '&openid=' + openid
+						})
+					}
+				})
 			},
 		},
 		onReady() {
+			let vm = this,
+				len = vm.userList.length + 1
+			uni.getStorage({
+				key: 'userData',
+			}).then(([err, {data}]) => {
+				vm.userData = data
+			})
+			uni.onSocketMessage(({data}) => {
+				data = JSON.parse(data)
+				switch(data.type) {
+					case 'nowClient':
+						vm.myClientId = data.clientId
+					case 'saidAll':
+						if(data.clientId == vm.myClientId) {
+							data.isMe = true
+						}
+						vm.userList.push(data)
+						len = vm.userList.length + 1
+						vm.lastMsgSide = len * 100					
+				}
+				
+			})
+			
+		},
+		onShow() {
 			let vm = this
-			//console.log(vm.$req);
-			/* vm.$req('getChatContent', {
-				typeCode: 1,
-				pageNo: 1,
-				weChatSize: 20,
-			}, data => {
-				console.log(data)
-			}) */
+			uni.sendSocketMessage({
+				data: JSON.stringify({type: 'nowClient'}),
+			})
+			uni.getStorage({
+				key: 'myOpenId',
+			}).then(([err, {data}]) => {
+				vm.openid = data
+			})
 		},
 		onLoad() {
 			let vm = this
@@ -145,18 +146,28 @@
 		watch: {
 			reqmsg(value) {
 				let vm = this,
-					len = vm.userList.length + 1
-				// console.log(value)
-				vm.userList.push({
-					name: '爱无边界',
-					sex: 'male',
+					cover = vm.userData.userInfo.avatarUrl,
+					sex = vm.userData.userInfo.gender,
+					name = vm.userData.userInfo.nickName
+				if(sex == 1) {
+					sex = 'male'
+				} else {
+					sex = 'female'
+				}
+				let data = {
+					type: 'saidAll',
+					name,
+					sex,
 					msg: value,
-					cover: '/static/assets/user-head.png',
-					isMe: true,
+					cover,
+					myclientid: vm.clientId,
+					openid: vm.openid,
+				}
+				uni.sendSocketMessage({
+					data: JSON.stringify(data)
 				})
-				vm.lastMsgSide = len * 100
 			}
-		}
+		},
 	}
 </script>
 <style lang="less" scoped>

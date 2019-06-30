@@ -5,7 +5,7 @@
 				<view class="cover">
 					<!-- <text class="iconfont icon-female"></text> -->
 					<view class="user-head">
-						<image src="/static/assets/user-head.png"></image>
+						<image :src="userData.userInfo.avatarUrl"></image>
 					</view>
 				</view>
 				<view>世界</view>
@@ -52,8 +52,21 @@
 					value: '我的',
 					path: '/pages/extra/myself',
 					color: '#197ead',
-					}],
+				}],
+				userData: {
+					userInfo: {
+						avatarUrl: '/static/assets/user-head.png',
+					}
+				},
 			}
+		},
+		onReady() {
+			let vm = this
+			uni.getStorage({
+				key: 'userData',
+			}).then(([err, {data}]) => {
+				vm.userData = data
+			})
 		},
 		methods: {
 			jumpToPage(path) {
