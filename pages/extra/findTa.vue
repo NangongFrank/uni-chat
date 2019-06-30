@@ -396,7 +396,7 @@
 			width: 300upx;
 			height: 80upx;
 			@{bdra}: 40upx;
-			letter-spacing: 14upx;
+			word-spacing: 10upx;
 			color: #fff;
 			@{fs}: 40upx;
 			@{bgc}: #4529a2;

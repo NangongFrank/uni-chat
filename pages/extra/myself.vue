@@ -5,14 +5,17 @@
 				<view class="box-aside">
 					<view class="box-aside-cover">
 						<view class="cover">
-							<image src="/static/assets/myself/user-head.png"></image>
+							<image :src="userInfo.avatarUrl"></image>
 						</view>
 					</view>
 					<view class="box-aside-info">
 						<view class="name">
-							<view class="user-name">ALEX</view>
+							<view class="user-name" v-text="userInfo.nickName"></view>
 							<view class="sex iconfont"
-							:class="['icon-' + 'female', 'bg-' + 'female']"></view>
+							:class="{'icon-female': userInfo.gender != 1, 
+							'bg-female': userInfo.gender != 1,
+							'icon-male': userInfo.gender == 1, 
+							'bg-male': userInfo.gender == 1}"></view>
 						</view>
 					</view>
 				</view>
@@ -26,7 +29,7 @@
 						v-for="(value, index) in tags"
 						:key="index"
 						v-text="value.value"></view>
-						<navigator url="/pages/children/addTag" class="iconfont icon-edit-pen"></navigator>
+						<navigator url="/pages/children/addTag?type=addmytag" class="iconfont icon-edit-pen"></navigator>
 					</view>
 				</view>
 			</view>
@@ -62,31 +65,43 @@
 	</view>
 </template>
 <script>
+	import {getMyTags} from '@/extends/host'
 	export default {
 		data() {
 			return {
 				viewMinHeight: 0,
 				pageMinHeight: 0,
-				tags: [{
-					value: '90后'
-					}, {
-					value: '美术'
-					}, {
-					value: '运动'
-					}, {
-					value: '电影'
-					}, {
-					value: '电影'
-					}, {
-					value: '电影'
-					}, {
-					value: '电影'
-				}],
+				tags: [],
+				openid: '',
+				userInfo: {},
 			}
 		},
 		methods: {
 			navModelChange({detail}) {
 				console.log(detail)
+			},
+			initUserInfo() {
+				let vm = this
+				uni.getStorage({
+					key: 'myOpenId',
+				}).then(([err, {data}]) => {
+					vm.openid = data
+					// 获取用户的标签
+					uni.request({
+						url: getMyTags,
+						data: {openid: data},
+					}).then(([err, {data}]) => {
+						vm.tags = data
+						console.log(data)
+						uni.stopPullDownRefresh()
+					})
+				})
+				uni.getStorage({
+					key: 'userData',
+				}).then(([err, {data}]) => {
+					// 加载用户信息
+					vm.userInfo = data.userInfo
+				})
 			},
 			wastMoney() {
 				uni.showToast({
@@ -120,6 +135,17 @@
 				},
 			})
 		},
+		onLoad() {
+			this.initUserInfo()
+		},
+		onPullDownRefresh() {
+			this.initUserInfo()
+		},
+		watch: {
+			openid(value) {
+				// 获取个人相关的信息
+			},
+		}
 	}
 </script>
 <style lang="less" scoped>

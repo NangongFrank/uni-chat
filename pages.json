@@ -39,8 +39,9 @@
 		{
 			"path": "pages/extra/myself",
 			"style": {
-				"navigationBarTitleText":"我的"
-			}
+				"navigationBarTitleText":"我的",
+				"enablePullDownRefresh": true
+ 			}
 		},{
 			"path": "pages/children/addTag",
 			"style": {
@@ -102,7 +103,8 @@
 			"name":"私聊"
 		}, {
 			"path": "pages/children/addTag",
-			"name":"标签操作"
+			"name":"标签操作",
+			"query":"type=addmytag"
 		}, {
 			"path": "pages/extra/findTa",
 			"name":"寻TA"

@@ -82,27 +82,23 @@
 			},
 			seeUser({openid, isMe, clientId, name}) {
 				let vm = this
-				uni.getStorage({
-					key: 'myOpenId',
+				uni.request({
+					method: 'post',
+					url: friendIsFriend,
+					data: {
+						findOpenId: vm.openid,
+						foundOpenId: openid,
+					}
 				}).then(([err, {data}]) => {
-					uni.request({
-						method: 'post',
-						url: friendIsFriend,
-						data: {
-							findOpenId: data,
-							foundOpenId: openid,
-						}
-					}).then(([err, {data}]) => {
-						if(isMe) {
-							uni.navigateTo({
-								url: '/pages/extra/myself'
-							})
-						} else {
-							uni.navigateTo({
-								url: '/pages/children/userHome?isFriend=' + data.state + '&clientId=' + clientId + '&openid=' + openid
-							})
-						}
-					})
+					if(isMe) {
+						uni.navigateTo({
+							url: '/pages/extra/myself'
+						})
+					} else {
+						uni.navigateTo({
+							url: '/pages/children/userHome?isFriend=' + data.state + '&clientId=' + clientId + '&openid=' + openid
+						})
+					}
 				})
 			},
 		},
@@ -113,6 +109,11 @@
 				key: 'userData',
 			}).then(([err, {data}]) => {
 				vm.userData = data
+			})
+			uni.getStorage({
+				key: "myOpenId",
+			}).then(([err, {data}]) => {
+				vm.openid = data
 			})
 			uni.onSocketMessage(({data}) => {
 				data = JSON.parse(data)

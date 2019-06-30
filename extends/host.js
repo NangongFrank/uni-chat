@@ -18,6 +18,10 @@ let messageGetChat = host + tpImport + 'message/getChat',
 	
 let friendIsFriend = host + tpImport + 'friend/isfriend'
 
+let getMyTags = host + tpImport + 'tag/getusertags',
+	recommendTags = host + tpImport + 'tag/getRecommendTags',
+	setMyTags = host + tpImport + 'tag/setUserTags'
+
 export {appid, secret}
 
 // websocket 连接
@@ -45,4 +49,11 @@ export {
 // 好友
 export {
 	friendIsFriend, // post
+}
+
+// 标签操作
+export {
+	getMyTags,  // get
+	recommendTags,  // get
+	setMyTags,  // post
 }

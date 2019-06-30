@@ -27,7 +27,7 @@
 					v-text="value.value"></view>
 				</view>
 				<view class="tip">
-					<view>第一个标签将作为自己的随机搜索标志</view>
+					<view>最多可存储8个标签</view>
 				</view>
 				<view class="space-pool"></view>
 				<view class="btn">
@@ -38,89 +38,47 @@
 	</view>
 </template>
 <script>
+	import {getMyTags, recommendTags, setMyTags} from '@/extends/host'
 	export default {
 		data() {
 			return {
 				tags:[],
-				resTags1: [{
-					value: '篮球'
-					}, {
-					value: '羽毛球'
-					}, {
-					value: '乒乓球'
-					}, {
-					value: '足球'
-					}, {
-					value: '滑板'
-					}, {
-					value: '滑旱冰'
-					}, {
-					value: '跑步'
-					}, {
-					value: '跳绳'
-					}, {
-					value: '举重'
-					}, {
-					value: '音乐'
-					}, {
-					value: '电影'
-					}, {
-					value: '绘画'
-					}, {
-					value: '小说'
-					}, {
-					value: '看书'
-					}, {
-					value: '吉他'
-					}, {
-					value: '钢琴'
-					}, {
-					value: '萨克斯'
-					}, {
-					value: '葫芦丝'
-					}, {
-					value: '小提琴'
-					}, {
-					value: '折纸'
-					}, {
-					value: '剪纸'
-					}, {
-					value: '品茶'
-				}],
-				resTags2: [{
-					value: '涂鸦'
-					}, {
-					value: '夜猫子'
-					}, {
-					value: '只爱美剧'
-					}, {
-					value: '做一个开心的吃货'
-					}, {
-					value: '幽默'
-					}, {
-					value: '帽子控'
-					}, {
-					value: '二次元'
-					}, {
-					value: '型男'
-					}, {
-					value: '静水流深'
-					}, {
-					value: '萌萌哒'
-					}, {
-					value: '风趣'
-					}, {
-					value: '单身待解救'
-					}, {
-					value: '狮子座'
-					}, {
-					value: '宅女'
-				}],
+				resTags1: [],
+				resTags2: [],
 				tagVal: "",
+				type: 'addmytag',
 			}
 		},
-		onLoad(opitons) {
-
+		onLoad({type}) {
+			let vm = this
+			if(type == 'addmytag') {
+				uni.getStorage({
+					key: 'myOpenId',
+				}).then(([err, {data}]) => {
+					vm.openid = data
+					uni.request({
+						url: getMyTags,
+						data: {openid: data},
+					}).then(([err, {data}]) => {
+						vm.tags = data
+					})
+				})
+			} else {
+				vm.type = 'searchtag'
+				uni.getStorage({
+					key: 'searchTags'
+				}).then(([err, {data}]) => {
+					vm.tags = data
+				}).catch(e => {
+					vm.tags = []
+				})
+			}
+			uni.request({
+				url: recommendTags,
+			}).then(([err, {data}]) => {
+				vm.resTags1 = data[0]
+				vm.resTags2 = data[1]
+			})
 		},
 		methods: {
 			addTag({target}) {
@@ -163,10 +121,45 @@
 			},
 			savaTags() {
 				// 保存用户的自定义标签
-				uni.navigateTo({
-					animationType: "slide-in-right",
-					url: "/pages/extra/myself"
-				})
+				let vm = this
+				if(!vm.tags.length) {
+					uni.showToast({
+						title: '需要添加标签保存',
+						icon: 'none',
+						duration: 900
+					})
+					return
+				}
+				if(vm.type == 'searchtag') {
+					uni.setStorage({
+						key: 'searchTags',
+						data: vm.tags
+					}).then(e => {
+						uni.navigateBack({
+							animationType: "slide-in-right",
+						})
+					})
+				} else {
+					uni.showLoading({
+						title: '保存中...'
+					})
+					uni.request({
+						url: setMyTags,
+						method: 'post',
+						data: {
+							openid: vm.openid,
+							data: JSON.stringify(vm.tags),
+						},  
+					}).then(([err, {data}]) => {
+						uni.hideLoading()
+						if(data.state) {
+							uni.navigateBack({
+								animationType: "slide-in-right",
+							})
+						}
+					})
+				}
+				
 			},
 		},
 		onReady() {
