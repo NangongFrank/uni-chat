@@ -8,10 +8,10 @@
 			<customer-service />
 		</view>
 		<view>
-			<chat-room :reqmsg="msg" :pual-height="viewMinHeight"/>
+			<chat-room :reqmsg="msg" :resource="resource" :pual-height="viewMinHeight"/>
 		</view>
 		<view class="send-box">
-			<chat-send-box @resmsg="resMsg" />
+			<chat-send-box @resmsg="resMsg" @resource="resource"/>
 		</view>
 	</view>
 </template>
@@ -30,6 +30,7 @@
 				pageMinHeight: 0,
 				userData: {},
 				clientId: '',
+				resource: ''
 			}
 		},
 		components: {
@@ -43,6 +44,10 @@
 			resMsg({msg}) {
 				let vm = this
 				vm.msg = msg
+			},
+			resourcePath({resource}) {
+				let vm = this
+				vm.resource = resource
 			},
 		},
 		onReady() {

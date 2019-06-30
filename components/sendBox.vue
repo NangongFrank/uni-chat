@@ -2,7 +2,8 @@
 	<view>
 		<view class="content">
 			<view class="micro"
-			@tap="startMicro">
+			@longtap="startMicro"
+			@touchend="stopMicro">
 				<view class="iconfont icon-micro"></view>
 			</view>
 			<view class="input-area">
@@ -20,13 +21,14 @@
 	
 </template>
 <script>
-	import {wsHost} from '@/extends/host'
+	import {uploadImgHost, uploadAudioHost} from '@/extends/host'
 	export default {
 		data() {
 			return {
 				inputValue: "",
 				isExtra: false,
 				isMicro: false,
+				openid: '',
 			}
 		},
 		methods: {
@@ -54,6 +56,9 @@
 					duration: 1000,
 				})
 			},
+			stopMicro() {
+				
+			},
 			checkFace() {
 				uni.showToast({
 					title: '表情功能开发中...',
@@ -63,25 +68,42 @@
 			},
 			sendImg() {
 				uni.chooseImage({
+					count: 1,
 					success(chooseImageRes) {
 						const tempFilePaths = chooseImageRes.tempFilePaths
 						let len = tempFilePaths.length,
 							i = 0
-						let uploadTask = uni.uploadFile({
-							url: 'https://www.example.com/upload', 
-							filePath: tempFilePaths[i],
-							name: 'file',
-							formData: {
-								'user': 'test'
-							},
-							success(uploadFileRes) {
-								console.log(uploadFileRes.data)
-							}
-						})
-						uploadTask.onProgressUpdate(({progress}) => {
-							// 监听上传进度
-						})
+						console.log(tempFilePaths[i])
+						vm.$emit("resource", {resource: tempFilePaths[i], type: '1'})
 					}
+				})
+			},
+			imgUpload(filePath) {
+				uni.showLoading({
+					title: '图片发送中...'
+				})
+				let uploadTask = uni.uploadFile({
+					url: uploadAudioHost, 
+					filePath,
+					name: 'file',
+				}).then(([err, {data}]) => {
+					uni.hideLoading()
+					// 上传完成后执行
+				})
+				uploadTask.onProgressUpdate(({progress}) => {
+					// 监听上传进度
+				})
+			},
+			audioUpload(filePath) {
+				let uploadTask = uni.uploadFile({
+					url: uploadImgHost, 
+					filePath,
+					name: 'file',
+				}).then(([err, {data}]) => {
+					// 上传完成后执行
+				})
+				uploadTask.onProgressUpdate(({progress}) => {
+					// 监听上传进度
 				})
 			},
 			hideExtra({target}) {

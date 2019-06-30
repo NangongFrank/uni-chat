@@ -34,6 +34,10 @@
 				type: [String, Number],
 				default: 0,
 			},
+			resource: {
+				type: Object,
+				default: {type: 0, resource: ''},
+			}
 		},
 		data() {
 			return {
@@ -164,11 +168,17 @@
 						myclientid: vm.clientId,
 						openid: openid,
 					}
-					console.log(data)
 					uni.sendSocketMessage({
 						data: JSON.stringify(data)
 					})
 				})			
+			},
+			resource(obj) {
+				if(obj.type == 1) {
+					// 图片
+				} else if(obj.type == 2) {
+					// 音频文件
+				}
 			}
 		},
 	}
