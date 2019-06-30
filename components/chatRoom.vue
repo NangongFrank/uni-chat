@@ -45,7 +45,6 @@
 					}
 				},
 				myClientId: '',
-				openid: '',
 			}
 		},
 		methods: {
@@ -83,23 +82,27 @@
 			},
 			seeUser({openid, isMe, clientId, name}) {
 				let vm = this
-				uni.request({
-					method: 'post',
-					url: friendIsFriend,
-					data: {
-						findOpenId: vm.openid,
-						foundOpenId: openid,
-					}
+				uni.getStorage({
+					key: 'myOpenId',
 				}).then(([err, {data}]) => {
-					if(isMe) {
-						uni.navigateTo({
-							url: '/pages/extra/myself'
-						})
-					} else {
-						uni.navigateTo({
-							url: '/pages/children/userHome?isFriend=' + data.state + '&clientId=' + clientId + '&openid=' + openid
-						})
-					}
+					uni.request({
+						method: 'post',
+						url: friendIsFriend,
+						data: {
+							findOpenId: data,
+							foundOpenId: openid,
+						}
+					}).then(([err, {data}]) => {
+						if(isMe) {
+							uni.navigateTo({
+								url: '/pages/extra/myself'
+							})
+						} else {
+							uni.navigateTo({
+								url: '/pages/children/userHome?isFriend=' + data.state + '&clientId=' + clientId + '&openid=' + openid
+							})
+						}
+					})
 				})
 			},
 		},
@@ -124,19 +127,12 @@
 						len = vm.userList.length + 1
 						vm.lastMsgSide = len * 100					
 				}
-				
 			})
-			
 		},
 		onShow() {
 			let vm = this
 			uni.sendSocketMessage({
 				data: JSON.stringify({type: 'nowClient'}),
-			})
-			uni.getStorage({
-				key: 'myOpenId',
-			}).then(([err, {data}]) => {
-				vm.openid = data
 			})
 		},
 		onLoad() {
@@ -154,18 +150,24 @@
 				} else {
 					sex = 'female'
 				}
-				let data = {
-					type: 'saidAll',
-					name,
-					sex,
-					msg: value,
-					cover,
-					myclientid: vm.clientId,
-					openid: vm.openid,
-				}
-				uni.sendSocketMessage({
-					data: JSON.stringify(data)
-				})
+				uni.getStorage({
+					key: 'myOpenId',
+				}).then(([err, {data}]) => {
+					let openid = data
+					data = {
+						type: 'saidAll',
+						name,
+						sex,
+						msg: value,
+						cover,
+						myclientid: vm.clientId,
+						openid: openid,
+					}
+					console.log(data)
+					uni.sendSocketMessage({
+						data: JSON.stringify(data)
+					})
+				})			
 			}
 		},
 	}
