@@ -21,7 +21,6 @@
 	
 </template>
 <script>
-	import {uploadImgHost, uploadAudioHost} from '@/extends/host'
 	export default {
 		data() {
 			return {
@@ -67,43 +66,16 @@
 				})
 			},
 			sendImg() {
+				let vm = this
 				uni.chooseImage({
 					count: 1,
 					success(chooseImageRes) {
 						const tempFilePaths = chooseImageRes.tempFilePaths
 						let len = tempFilePaths.length,
 							i = 0
-						console.log(tempFilePaths[i])
-						vm.$emit("resource", {resource: tempFilePaths[i], type: '1'})
+						vm.$emit("resource", {path: tempFilePaths[i], type: 1})
+						// vm.imgUpload(tempFilePaths[i])
 					}
-				})
-			},
-			imgUpload(filePath) {
-				uni.showLoading({
-					title: '图片发送中...'
-				})
-				let uploadTask = uni.uploadFile({
-					url: uploadAudioHost, 
-					filePath,
-					name: 'file',
-				}).then(([err, {data}]) => {
-					uni.hideLoading()
-					// 上传完成后执行
-				})
-				uploadTask.onProgressUpdate(({progress}) => {
-					// 监听上传进度
-				})
-			},
-			audioUpload(filePath) {
-				let uploadTask = uni.uploadFile({
-					url: uploadImgHost, 
-					filePath,
-					name: 'file',
-				}).then(([err, {data}]) => {
-					// 上传完成后执行
-				})
-				uploadTask.onProgressUpdate(({progress}) => {
-					// 监听上传进度
 				})
 			},
 			hideExtra({target}) {

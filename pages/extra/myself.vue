@@ -1,67 +1,80 @@
 <template>
 	<view class="wrapper" :style="{'min-height': pageMinHeight}">
-		<scroll-view scroll-y :style="{'height': viewMinHeight}">
-			<view class="box">
-				<view class="box-aside">
-					<view class="box-aside-cover">
-						<view class="cover">
-							<image :src="userInfo.avatarUrl"></image>
-						</view>
-					</view>
-					<view class="box-aside-info">
-						<view class="name">
-							<view class="user-name" v-text="userInfo.nickName"></view>
-							<view class="sex iconfont"
-							:class="{'icon-female': userInfo.gender != 1, 
-							'bg-female': userInfo.gender != 1,
-							'icon-male': userInfo.gender == 1, 
-							'bg-male': userInfo.gender == 1}"></view>
-						</view>
+		<view class="box">
+			<navigator url="/pages/extra/children/advice" 
+			class="box-token iconfont icon-advice"></navigator>
+			<view class="box-aside">
+				<view class="box-aside-cover">
+					<view class="cover">
+						<image :src="userInfo.avatarUrl"></image>
 					</view>
 				</view>
-				<view class="box-tags">
-					<view class="box-tags-tt">
-						<view class="iconfont icon-my-tag"></view>
-						<view>我的标签</view>
+				<view class="box-aside-info">
+					<view class="name">
+						<view class="user-name" v-text="userInfo.nickName"></view>
+						<view class="sex iconfont"
+						:class="{'icon-female': userInfo.gender != 1, 
+						'bg-female': userInfo.gender != 1,
+						'icon-male': userInfo.gender == 1, 
+						'bg-male': userInfo.gender == 1}"></view>
 					</view>
-					<view class="box-tags-ct">
-						<view class="item"
-						v-for="(value, index) in tags"
-						:key="index"
-						v-text="value.value"></view>
-						<navigator url="/pages/children/addTag?type=addmytag" class="iconfont icon-edit-pen"></navigator>
+					<view class="about-me" @tap="jumpNewPage">
+						<view class="about-me-box" data-tag="focus">
+							<view class="tt" data-tag="focus">关注</view>
+							<view class="ct" data-tag="focus">12</view>
+						</view>
+						<view class="about-me-box" data-tag="fans">
+							<view class="tt" data-tag="fans">粉丝</view>
+							<view class="ct" data-tag="fans">12</view>
+						</view>
 					</view>
 				</view>
 			</view>
-			<view class="extra">
-				<view class="extra-vip">
-					<view class="extra-vip-info">
-						<view class="iconfont icon-vip"></view>
-						<view class="vip-tip">开通VIP</view>
-					</view>
-					<view class="iconfont icon-column-line" style="color: #fff;"></view>
-					<navigator url="#" class="extra-vip-tip">
-						查看VIP的尊贵的特权
-					</navigator>
+			<view class="box-tags">
+				<view class="box-tags-tt">
+					<view class="iconfont icon-my-tag"></view>
+					<view>我的标签</view>
 				</view>
-				<view class="extra-my">
-					<view class="extra-my-box" @tap="jumpMyDiscuss">
-						<image src="/static/assets/myself/my-discuss.png"></image>
-						<view>我的关注</view>
-					</view>
-					<view class="extra-my-box" @tap="jumpMyAction">
-						<image src="/static/assets/myself/my-action.png"></image>
-						<view>我的动态</view>
-					</view>
-				</view>
-				<view class="extra-adjust">
-					<navigator url="#" class="extra-adjust-title">
-						<view class="iconfont icon-pen"></view>
-						<view class="adjust">意见反馈</view>
-					</navigator> 
+				<view class="box-tags-ct">
+					<view class="item"
+					v-for="(value, index) in tags"
+					:key="index"
+					v-text="value.value"></view>
+					<navigator url="/pages/children/addTag?type=addmytag" class="iconfont icon-edit-pen"></navigator>
 				</view>
 			</view>
-		</scroll-view>
+		</view>
+		<view class="extra">
+				<view class="extra-active">
+					<view class="m-left"></view>
+					<view class="m-right">
+						<view class="m-text-box"
+						v-for="(value, index) in userActive"
+						:key="index">
+							<view class="tip-info">
+								<view class="time" v-text="value.time"></view>
+								<view class="weather" v-text="value.weather"></view>
+							</view>
+							<view class="tip-ct">
+								<view class="li" v-for="(val, ind) in value.text"
+								:key="ind"
+								v-text="val"></view>
+							</view>
+							<view class="tip-media" v-if="value.imgs.length">
+								<image v-for="(val, ind) in value.imgs"
+								:key="ind"
+								:src="val"></image>
+								<!-- 图片不足3张处理方法 添加空元素 -->
+								<view v-if="value.imgs.length % 3 == 2"></view>
+							</view>
+						</view>
+					</view>
+				</view>
+			</view>
+		<navigator url="/pages/extra/children/addActive" class="add-active">
+			<view>发布</view>
+			<view>动态</view>
+		</navigator>
 	</view>
 </template>
 <script>
@@ -74,14 +87,38 @@
 				tags: [],
 				openid: '',
 				userInfo: {},
+				userActive: [{
+					time: '2019-06-18 12:38:42',
+					weather: '晴',
+					text: ['想吃鱼~', '酸菜鱼~', '水煮鱼~', '剁椒鱼头~'],
+					imgs: [],
+					}, {
+					time: '2019-06-17 12:38:42',
+					weather: '晴',
+					text: ['希望自己真的可以过得很好...'],
+					imgs: ['/static/assets/findta/runner.jpg', '/static/assets/findta/bird.jpg', '/static/assets/findta/screen.jpg'],
+					}, {
+					time: '2019-06-16 12:38:42',
+					weather: '多云',
+					text: ['人可以有傲骨，但不可以有傲气'],
+					imgs: ['/static/assets/findta/runner.jpg', '/static/assets/findta/screen.jpg'],
+					}, {
+					time: '2019-06-15 12:38:42',
+					weather: '多云',
+					text: ['人生自古谁无死, 留取丹心照汗心...'],
+					imgs: ['/static/assets/findta/runner.jpg'],
+				}],
 			}
 		},
 		methods: {
-			navModelChange({detail}) {
-				console.log(detail)
-			},
 			initUserInfo() {
 				let vm = this
+				uni.getStorage({
+					key: 'userData',
+				}).then(([err, {data}]) => {
+					// 加载用户信息
+					vm.userInfo = data.userInfo
+				})
 				uni.getStorage({
 					key: 'myOpenId',
 				}).then(([err, {data}]) => {
@@ -92,38 +129,24 @@
 						data: {openid: data},
 					}).then(([err, {data}]) => {
 						vm.tags = data
-						console.log(data)
+						// console.log(data)
 						uni.stopPullDownRefresh()
 					})
 				})
-				uni.getStorage({
-					key: 'userData',
-				}).then(([err, {data}]) => {
-					// 加载用户信息
-					vm.userInfo = data.userInfo
-				})
 			},
-			wastMoney() {
-				uni.showToast({
-					title: '功能暂未开放',
-					duration: 800,
-					icon: 'none',
-				})
+			jumpNewPage({target}) {
+				let {tag} = target.dataset,
+					url = ""
+				if(tag == 'focus') {
+					url = '/pages/extra/children/focusUser'
+				} else {
+					url = '/pages/extra/children/fans'
+				}
+				uni.navigateTo({url})
 			},
-			jumpMyAction() {
-				uni.showToast({
-					title: '暂未开通',
-					duration: 900,
-					icon: 'none',
-				})
-			},
-			jumpMyDiscuss() {
-				uni.showToast({
-					title: '暂未开通',
-					duration: 900,
-					icon: 'none',
-				})
-			},
+		},
+		onPullDownRefresh() {
+			this.initUserInfo()
 		},
 		onReady() {
 			let vm = this
@@ -136,9 +159,6 @@
 			})
 		},
 		onLoad() {
-			this.initUserInfo()
-		},
-		onPullDownRefresh() {
 			this.initUserInfo()
 		},
 		watch: {
@@ -155,87 +175,7 @@
 		transform: scale(0.6);
 	}
 	.wrapper {
-		@{bgc}: @wrapper-bg;
-	}
-	.extra {
-		display: flex;
-		@{ai}:center;
-		@{fd}: column;
-		&-my {
-			width: 710upx;
-			@{bgc}: @extra-my-bg;
-			@{bdra}: 30upx;
-			margin-bottom: 18upx;
-			image {
-				width: 65upx;
-				height: 65upx;
-			}
-			color: #8e81c0;
-			@{fs}: 24upx;
-			display: flex;
-			&-box {
-				display: flex;
-				@{fd}: column;
-				@{ai}: center;
-				padding: 40upx 12upx;
-				margin: 0 20upx;
-				view {
-					margin-top: 20upx;
-				}
-				&:active {
-					opacity: .8;
-				}
-			}
-		}
-		&-adjust {
-			width: 710upx;
-			min-height: 110upx;
-			@{bgc}: @extra-adjust-bg;
-			@{bdra}: 30upx;
-			&-title {
-				display: flex;
-				@{ai}: center;
-				padding: 50upx 50upx 30upx 50upx;
-				.iconfont {
-					@{bgc}: @extra-adjust-title-color;
-					width: 42upx;
-					height: 42upx;
-					@{fs}: 30upx;
-					line-height: 42upx;
-					text-align: center;
-					@{bdra}: 50%;
-					margin-right: 10upx;
-				}
-				.adjust {
-					color: @extra-adjust-title-color;
-					@{fs}: 28upx;
-				}
-			}
-		}
-		&-vip {
-			margin: 20upx 0;
-			width: 690upx;
-			height: 68upx;
-			@{bdra}: 30upx;
-			@{bgc}: @extra-vip-bg;
-			display: flex;
-			@{ai}: center;
-			@{jc}: space-around;
-			@{fs}: 32upx;
-			.vip-tip {
-				color: @extra-vip-tip-color;
-				margin-left: 10upx;
-			}
-			&-info,
-			&-tip {
-				display: flex;
-				@{ai}: center;
-			}
-			.iconfont,
-			&-tip {
-				color: @extra-vip-simple-color;
-			}
-		}
+		@{bgc}: #fff;
 	}
 	.box {
 		// min-height: 508upx;
@@ -243,6 +183,14 @@
 		@{bgi}: linear-gradient(to bottom, @box-nav-start-bg, @box-nav-end-bg);
 		padding: 30upx 0 0 10upx;
 		color: @simple-font-color;
+		position: relative;
+		&-token {
+			position: absolute;
+			right: 30upx;
+			top: 30upx;
+			color: #fff;
+			@{fs}: 48upx;
+		}
 		&-tags {
 			padding: 10upx 50upx;
 			@{fs}: 28upx;
@@ -253,6 +201,7 @@
 				display: flex;
 				@{ai}: center;
 				@{fs}: 24upx;
+				@{jc}: center;
 				.iconfont {
 					@{fs}: 34upx; 
 					margin-right: 14upx;
@@ -278,6 +227,23 @@
 			@{ai}: center;
 			@{jc}: center;
 			padding: 40upx 0;
+			.about-me {
+				margin-top: 10upx;
+				display: flex;
+				@{jc}: space-around;
+				&-box {
+					display: flex;
+					@{ai}: center;
+					@{fd}: column;
+				}
+				color: #fff;
+				.tt {
+					@{fs}: 28upx;
+				}
+				.ct {
+					@{fs}: 24upx;
+				}
+			}
 			&-cover {
 				margin-right: 12upx;
 				position: relative;
@@ -292,7 +258,6 @@
 					@{fs}: 28upx;
 				}
 			}
-			
 			&-info {
 				display: flex;
 				@{fd}: column;
@@ -346,10 +311,112 @@
 			}
 		}
 	}
+	.extra {
+		padding: 0 20upx;
+		&-active {
+			display: flex;
+			margin-top: 20upx;
+			.m-left {
+				width: 28upx;
+				display: flex;
+				@{fd}: column;
+				padding: 40upx 0 40upx 10upx;
+				&::before {
+					content: "";
+					flex: 1;
+					width: 2upx;
+					@{bgc}: #f3f3f3;
+				}
+			}
+			.m-text-box {
+				flex: 1;
+				margin-bottom: 20upx;
+				@{bgc}: #ebebeb;
+				@{bdra}: 12upx;
+				padding: 20upx;
+			}
+			.tip-info {
+				position: relative;
+				display: flex;
+				@{ai}: baseline;
+				&::after,
+				&::before {
+					position: absolute;
+					top: 10upx;
+					content: "";
+					display: block;
+				}
+				&::before {
+					border: 12upx solid transparent;
+					border-right-color: #ebebeb;
+					left: -40upx;
+				}
+				&::after {
+					left: -58upx;
+					width: 24upx;
+					height: 24upx;
+					@{bdra}: 50%;
+					@{bgc}: #ffc72d;
+				}
+			}
+			.m-right {
+				@{bdra}: 12upx;
+				flex: 1;
+				.time,
+				.weather {
+					color: #666;
+				}
+				.time {
+					@{fs}: 20upx;
+				}
+				.weather {
+					margin-left: 10upx;
+					@{fs}: 24upx;
+				}
+				.li {
+					@{fs}: 24upx;
+					margin-top: 14upx;
+				}
+				.tip-ct {
+					color: #333;
+				}
+				.tip-media {
+					margin-top: 14upx;
+					display: flex;
+					@{jc}: space-between;
+					view {
+						width: 200upx;
+						height: 200upx;
+					}
+				}
+				image {
+					width: 200upx;
+					height: 200upx;
+				}
+			}
+		}
+	}
 	.bg-female {
 		@{bgc}: @bg-female;
 	}
 	.bg-male {
 		@{bgc}: @bg-male;
+	}
+	.add-active {
+		position: fixed;
+		right: 30upx;
+		bottom: 30upx;
+		@{bdra}: 50%;
+		width: 80upx;
+		height: 80upx;
+		@{bgi}: linear-gradient(to bottom, #9c6cc1 20%, #4a2ca4);
+		display: flex;
+		@{ai}: center;
+		@{jc}: center;
+		@{fd}: column;
+		view {
+			@{fs}: 20upx;
+			color: #fff;
+		}
 	}
 </style>

@@ -174,7 +174,7 @@
 </script>
 <style lang="less" scoped>
 	@import '../../static/config.less';
-	@import "../../static/theme/extra/myself.less";
+	@import "../../static/theme/extra/userHome.less";
 	switch {
 		transform: scale(0.6);
 	}
@@ -235,6 +235,7 @@
 				display: flex;
 				@{fd}: column;
 				@{ai}: center;
+				padding-top: 40upx;
 				&::before {
 					content: "";
 					flex: 1;
@@ -266,9 +267,9 @@
 					left: -40upx;
 				}
 				&::after {
-					left: -49upx;
-					width: 20upx;
-					height: 20upx;
+					left: -50upx;
+					width: 24upx;
+					height: 24upx;
 					@{bdra}: 50%;
 					@{bgc}: #ffc72d;
 				}

@@ -9,7 +9,8 @@
 		{
 			"path": "pages/index/startPage",
 			"style": {
-				"navigationBarTitleText":"LIKING"
+				"navigationBarTitleText":"LIKING",
+				"navigationStyle":"custom"
 			}
 		},
 		{
@@ -46,6 +47,26 @@
 			"path": "pages/children/addTag",
 			"style": {
 				"navigationBarTitleText":"添加标签"
+			}
+		},{
+			"path": "pages/extra/children/addActive",
+			"style": {
+				"navigationBarTitleText":"发布动态"
+			}
+		},{
+			"path": "pages/extra/children/advice",
+			"style": {
+				"navigationBarTitleText":"意见反馈"
+			}
+		},{
+			"path": "pages/extra/children/fans",
+			"style": {
+				"navigationBarTitleText":"粉丝"
+			}
+		},{
+			"path": "pages/extra/children/focusUser",
+			"style": {
+				"navigationBarTitleText":"关注"
 			}
 		},
 		{
@@ -118,8 +139,17 @@
 			"path": "pages/children/userHome",
 			"name":"个人主页"
 		},{
-			"path":"pages/index/startPage",
-			"name":"启动页"
+			"path":"pages/extra/children/advice",
+			"name":"意见反馈"
+		},{
+			"path":"pages/extra/children/addActive",
+			"name":"发布动态"
+		},{
+			"path":"pages/extra/children/focusUser",
+			"name":"我的关注"
+		},{
+			"path":"pages/extra/children/fans",
+			"name":"我的粉丝"
 		}]
 	}
 }

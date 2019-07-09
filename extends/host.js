@@ -1,9 +1,18 @@
 const appid = 'wx65670f9c361d0227',
 	  secret = '40cd2c8443bb04808df2d5404f79e83e'
 	  
-const host = 'http://192.168.2.148/',
-	wsHost = 'ws://192.168.2.148:8282',
-	tpImport = 'index.php/index/'
+/* const host = 'http://192.168.2.148/',
+	  imgHost = 'http://192.168.2.148/',
+	  audioHost = 'http://192.168.2.148/',
+	  videoHost = 'http://192.168.2.148/',
+	  wsHost = 'ws://192.168.2.148:8282',
+	  tpImport = 'index.php/index/' */
+const host = 'https://www.ngfrankgl.cn/',
+	  imgHost = 'http://www.ngfrankgl.cn/',
+	  audioHost = 'http://www.ngfrankgl.cn/',
+	  videoHost = 'http://www.ngfrankgl.cn/',
+	  wsHost = 'wss://www.ngfrankgl.cn:8282',
+	  tpImport = 'liking/public/index.php/index/'
 	
 let uploadImgHost = host + tpImport + 'upload/imgupload',
     uploadAudioHost = host + tpImport + 'upload/audioupload'
@@ -27,6 +36,7 @@ export {appid, secret}
 // websocket 连接
 export {
 	wsHost,
+	host,
 }
 // 文件上传
 export {

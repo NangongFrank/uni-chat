@@ -8,10 +8,10 @@
 			<customer-service />
 		</view>
 		<view>
-			<chat-room :reqmsg="msg" :resource="resource" :pual-height="viewMinHeight"/>
+			<chat-room :pual-height="viewMinHeight"/>
 		</view>
 		<view class="send-box">
-			<chat-send-box @resmsg="resMsg" @resource="resource"/>
+			<chat-send-box/>
 		</view>
 	</view>
 </template>
@@ -22,12 +22,17 @@
 	import chatRoom from '@/components/chatRoom'
 	import customerService from '@/components/customerService'
 	import {wsHost} from '@/extends/host'
+	this.$on('resmsg', obj => {
+		console.log(obj)
+	})
+	this.$on('resource', obj => {
+		console.log(obj)
+	})
 	export default {
 		data() {
 			return {
 				msg: "",
 				viewMinHeight: 0,
-				pageMinHeight: 0,
 				userData: {},
 				clientId: '',
 				resource: ''
@@ -41,38 +46,26 @@
 			navHeader,
 		},
 		methods: {
-			resMsg({msg}) {
-				let vm = this
-				vm.msg = msg
-			},
-			resourcePath({resource}) {
-				let vm = this
-				vm.resource = resource
-			},
-		},
-		onReady() {
-			let vm = this
-			uni.getSystemInfo({
-				success({screenHeight, windowHeight}) {
-					// top 即header占据的空间高度(绝对值)
-					const top = 50
-					vm.pageMinHeight = screenHeight + 'px'
-					vm.viewMinHeight = windowHeight - top + 'px'
-				},
-			})
-		},
-		onLoad() {
 			
 		},
+		onReady() {
+			
+		},
+		onLoad() {
+			uni.getSystemInfo().then(([err, {screenHeight, windowHeight}]) => {
+				const top = 50
+				this.viewMinHeight = windowHeight - top + 'px'
+			})
+		},
 		onShow() {
-			let vm = this
+			/* let vm = this
 			// 获取用户信息 打开websocket
 			uni.getStorage({
 				key: 'userData',
 			}).then(([err, {data}]) => {
 				this.userData = data
 				uni.connectSocket({url: wsHost})
-			})
+			}) */
 		}
 	}
 </script>

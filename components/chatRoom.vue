@@ -13,17 +13,23 @@
 							<view class="iconfont" :class="['icon-' + value.sex, 'bg-' + value.sex]"></view>
 							<view class="username" v-text="value.name"></view>
 						</view>
-						<view class="msg"
+						<view class="msg" v-if="value.msg"
 						:class="{'is-me': value.isMe}"
 						v-text="value.msg"></view>
+						<view class="img" v-if="value.type == 1">
+							<image :src="imgHost + value.path" ></image>
+						</view>
+						<view class="audio" v-if="value.type == 2">
+							<audio :src="audioHost + value.path" controls></audio>
+						</view>
 					</view>
-				</view>
+				</view> 
 			</view>
 		</scroll-view>
 	</view>
 </template>
 <script>
-	import {friendIsFriend} from '@/extends/host'
+	import {friendIsFriend, uploadImgHost, uploadAudioHost, imgHost, audioHost} from '@/extends/host'
 	export default {
 		props: {
 			reqmsg: {
@@ -36,7 +42,7 @@
 			},
 			resource: {
 				type: Object,
-				default: {type: 0, resource: ''},
+				default: new Object(),
 			}
 		},
 		data() {
@@ -54,6 +60,36 @@
 		methods: {
 			tapUser() {
 				
+			},
+			imgUpload(filePath, resolve) {
+				uni.showLoading({
+					title: '图片发送中...'
+				})
+				let uploadTask = uni.uploadFile({
+					url: uploadImgHost, 
+					filePath,
+					name: 'file',
+				}).then(([err, {data}]) => {
+					uni.hideLoading()
+					// 上传完成后执行
+					if(data.state) {
+						console.log(data.data)
+						resolve(data.data)
+					}					
+					//console.log(data)
+				})
+			},
+			audioUpload(filePath) {
+				let uploadTask = uni.uploadFile({
+					url: uploadAudioHost, 
+					filePath,
+					name: 'file',
+				}).then(([err, {data}]) => {
+					// 上传完成后执行
+				})
+				uploadTask.onProgressUpdate(({progress}) => {
+					// 监听上传进度
+				})
 			},
 			jumpToChat({openid, isMe, clientId, name}) {
 				// 请求服务器，用户是否是好友
@@ -118,12 +154,16 @@
 				key: "myOpenId",
 			}).then(([err, {data}]) => {
 				vm.openid = data
+				uni.sendSocketMessage({
+					data: JSON.stringify({type: 'nowClient', openid: data}),
+				})
 			})
 			uni.onSocketMessage(({data}) => {
 				data = JSON.parse(data)
 				switch(data.type) {
 					case 'nowClient':
 						vm.myClientId = data.clientId
+						console.log(data)
 					case 'saidAll':
 						if(data.clientId == vm.myClientId) {
 							data.isMe = true
@@ -132,12 +172,6 @@
 						len = vm.userList.length + 1
 						vm.lastMsgSide = len * 100					
 				}
-			})
-		},
-		onShow() {
-			let vm = this
-			uni.sendSocketMessage({
-				data: JSON.stringify({type: 'nowClient'}),
 			})
 		},
 		onLoad() {
@@ -174,10 +208,59 @@
 				})			
 			},
 			resource(obj) {
+				let vm = this,
+					cover = vm.userData.userInfo.avatarUrl,
+					sex = vm.userData.userInfo.gender,
+					name = vm.userData.userInfo.nickName
+				if(sex == 1) {
+					sex = 'male'
+				} else {
+					sex = 'female'
+				}
 				if(obj.type == 1) {
-					// 图片
+					// 图片展示
+					uni.getStorage({
+						key: 'myOpenId',
+					}).then(([err, {data}]) => {
+						let openid = data
+						data = {
+							type: 'saidAll',
+							name,
+							sex,
+							cover,
+							myclientid: vm.clientId,
+							openid: openid,
+							type: 1,
+						}
+						vm.imgUpload(obj.path, res => {
+							data.path = res.path
+							console.log(res)
+							uni.sendSocketMessage({
+								data: JSON.stringify(data)
+							})
+						})
+						
+					})		
 				} else if(obj.type == 2) {
-					// 音频文件
+					// 音频文件展示
+					uni.getStorage({
+						key: 'myOpenId',
+					}).then(([err, {data}]) => {
+						let openid = data
+						data = {
+							type: 'saidAll',
+							name,
+							sex,
+							cover,
+							myclientid: vm.clientId,
+							openid: openid,
+							type: 2,
+							path: obj.path
+						}
+						uni.sendSocketMessage({
+							data: JSON.stringify(data)
+						})
+					})
 				}
 			}
 		},

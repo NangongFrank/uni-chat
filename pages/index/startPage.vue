@@ -1,12 +1,12 @@
 <template>
 	<view class="wrapper" :style="{height: pageHeight}">
 		<image src="/static/assets/start-page-bg.jpg" mode="widthFix"></image>
-		<view class="web-font">LIKING</view>
+		<!-- <view class="web-font">LIKING</view> -->
 		<view class="m-progress" v-if="progress != 100">
 			<view :style="{width: progress + '%'}"></view>
 		</view>
 		<button v-if="progress == 100" open-type="getUserInfo" 
-		@getuserinfo="getUserInfo">使用当前用户登录</button>
+		@getuserinfo="getUserInfo">微信登录</button>
 	</view>
 </template>
 <script>

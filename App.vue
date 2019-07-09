@@ -1,6 +1,6 @@
 <script>
 	export default {
-		 onLaunch() {
+		/* onLaunch() {
 			 // uni.getSystemInfo({
 			 // 	success(options) {
 				// 	console.log(options)
@@ -12,7 +12,7 @@
 		 },
 		 onHide() {
 			
-		 },
+		 }, */
 	}	
 </script>
 
