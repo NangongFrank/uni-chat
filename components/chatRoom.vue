@@ -154,11 +154,11 @@
 				key: "myOpenId",
 			}).then(([err, {data}]) => {
 				vm.openid = data
-				uni.sendSocketMessage({
+				/* uni.sendSocketMessage({
 					data: JSON.stringify({type: 'nowClient', openid: data}),
-				})
+				}) */
 			})
-			uni.onSocketMessage(({data}) => {
+			/* uni.onSocketMessage(({data}) => {
 				data = JSON.parse(data)
 				switch(data.type) {
 					case 'nowClient':
@@ -172,7 +172,7 @@
 						len = vm.userList.length + 1
 						vm.lastMsgSide = len * 100					
 				}
-			})
+			}) */
 		},
 		onLoad() {
 			let vm = this

@@ -22,12 +22,12 @@
 	import chatRoom from '@/components/chatRoom'
 	import customerService from '@/components/customerService'
 	import {wsHost} from '@/extends/host'
-	this.$on('resmsg', obj => {
+	/* this.$on('resmsg', obj => {
 		console.log(obj)
 	})
 	this.$on('resource', obj => {
 		console.log(obj)
-	})
+	}) */
 	export default {
 		data() {
 			return {

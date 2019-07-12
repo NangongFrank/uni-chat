@@ -50,7 +50,7 @@
 			}
 		},
 		onLoad({type}) {
-			let vm = this
+			/* let vm = this
 			if(type == 'addmytag') {
 				uni.getStorage({
 					key: 'myOpenId',
@@ -78,7 +78,7 @@
 			}).then(([err, {data}]) => {
 				vm.resTags1 = data[0]
 				vm.resTags2 = data[1]
-			})
+			}) */
 		},
 		methods: {
 			addTag({target}) {

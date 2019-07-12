@@ -44,7 +44,7 @@
 				this.userCheck()
 			},
 			userCheck() {
-				let vm = this,
+				/* let vm = this,
 					openid = vm.openid
 				uni.showLoading({
 					title: '处理用户信息'
@@ -61,6 +61,9 @@
 					} else {
 						vm.userRegister()
 					}
+				}) */
+				uni.reLaunch({
+					url: '/pages/index/index'
 				})
 			},
 			userRegister() {

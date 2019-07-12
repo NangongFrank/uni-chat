@@ -124,14 +124,14 @@
 				}).then(([err, {data}]) => {
 					vm.openid = data
 					// 获取用户的标签
-					uni.request({
+					/* uni.request({
 						url: getMyTags,
 						data: {openid: data},
 					}).then(([err, {data}]) => {
 						vm.tags = data
 						// console.log(data)
 						uni.stopPullDownRefresh()
-					})
+					}) */
 				})
 			},
 			jumpNewPage({target}) {
